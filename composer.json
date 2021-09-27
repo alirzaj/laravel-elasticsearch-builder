@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
+        "elasticsearch/elasticsearch": "^7.0",
         "illuminate/contracts": "^8.37"
     },
     "require-dev": {
@@ -25,6 +26,7 @@
         "orchestra/testbench": "^6.15",
         "pestphp/pest": "^1.18",
         "pestphp/pest-plugin-laravel": "^1.1",
+        "pestphp/pest-plugin-mock": "^1.0",
         "vimeo/psalm": "^4.8"
     },
     "autoload": {
