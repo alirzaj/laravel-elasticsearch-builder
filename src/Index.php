@@ -2,7 +2,9 @@
 
 namespace Alirzaj\ElasticsearchBuilder;
 
-class Index
+use Illuminate\Database\Eloquent\Model;
+
+abstract class Index
 {
     /**
      * name of the index
@@ -18,7 +20,7 @@ class Index
      *
      * @var array|string[]
      */
-     public array $properties = [];
+    public array $properties = [];
 
     /**
      * other definitions of a field
@@ -45,6 +47,8 @@ class Index
 
     public function getName(): string
     {
-        return $this->name ?? strtolower($this::class);
+        return $this->name ?? strtolower(class_basename($this));
     }
+
+    public abstract function toIndex(Model $model): array;
 }
