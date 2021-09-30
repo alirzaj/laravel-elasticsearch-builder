@@ -3,6 +3,7 @@
 namespace Alirzaj\ElasticsearchBuilder\Tests\Indices;
 
 use Alirzaj\ElasticsearchBuilder\Index;
+use Illuminate\Database\Eloquent\Model;
 
 class Users extends Index
 {
@@ -39,4 +40,9 @@ class Users extends Index
             'group' => 0
         ]
     ];
+
+    public function toIndex(Model $model): array
+    {
+        return [];
+    }
 }
