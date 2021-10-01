@@ -14,11 +14,11 @@ it('can build match query', function () {
                         'field' => [
                             'analyzer' => 'aaa',
                             'query' => 'test',
-                            'fuzziness' => 'AUTO'
-                        ]
-                    ]
-                ]
-            ]
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ],
+            ],
         ])
         ->andReturn([
             'hits' => [
@@ -26,8 +26,8 @@ it('can build match query', function () {
                     ['_source' => []],
                     ['_source' => []],
                     ['_source' => []],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     Blog::elasticsearchQuery()->match('field', 'test', 'aaa', 'AUTO')->get();

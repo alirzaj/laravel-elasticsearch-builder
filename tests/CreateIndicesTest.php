@@ -26,17 +26,17 @@ it('can create indices', function () {
                                 'hashtag' => [
                                     'type' => 'custom',
                                     'tokenizer' => 'hashtag_tokenizer',
-                                    'filter' => ['lowercase']
-                                ]
+                                    'filter' => ['lowercase'],
+                                ],
                             ],
                             'tokenizer' => [
                                 'hashtag_tokenizer' => [
                                     'type' => 'pattern',
                                     'pattern' => '#\S+',
-                                    'group' => 0
-                                ]
-                            ]
-                        ]
+                                    'group' => 0,
+                                ],
+                            ],
+                        ],
                     ],
                     'mappings' => [
                         'properties' => [
@@ -45,25 +45,25 @@ it('can create indices', function () {
                                 'fields' => [
                                     'hashtags' => [
                                         'type' => 'text',
-                                        'analyzer' => 'hashtag'
-                                    ]
-                                ]
+                                        'analyzer' => 'hashtag',
+                                    ],
+                                ],
                             ],
                             'user_id' => [
                                 'type' => 'keyword',
-                                'fields' => []
+                                'fields' => [],
                             ],
                             'ip' => [
                                 'type' => 'ip',
-                                'fields' => []
+                                'fields' => [],
                             ],
                             'created_at' => [
                                 'type' => 'date',
-                                'fields' => []
+                                'fields' => [],
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         );
 
@@ -76,26 +76,26 @@ it('can create indices', function () {
                 'settings' => [
                     'analysis' => [
                         'analyzer' => [],
-                        'tokenizer' => []
-                    ]
+                        'tokenizer' => [],
+                    ],
                 ],
                 'mappings' => [
                     'properties' => [
                         'text' => [
                             'type' => 'text',
-                            'fields' => []
+                            'fields' => [],
                         ],
                         'title' => [
                             'type' => 'keyword',
-                            'fields' => []
+                            'fields' => [],
                         ],
                         'description' => [
                             'type' => 'completion',
-                            'fields' => []
-                        ]
+                            'fields' => [],
+                        ],
                     ],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     artisan('elastic:create-indices');

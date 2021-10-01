@@ -10,6 +10,6 @@ class Blog extends Model
     use Searchable;
 
     public $table = 'blogs';
-    protected  $guarded = [];
+    protected $guarded = [];
     public $timestamps = false;
 }

@@ -17,31 +17,31 @@ it('can build a should query', function () {
                                 'match' => [
                                     'a' => [
                                         'query' => 'b',
-                                        'fuzziness' => 'AUTO'
-                                    ]
-                                ]
+                                        'fuzziness' => 'AUTO',
+                                    ],
+                                ],
                             ],
                             [
                                 'match' => [
                                     'z' => [
                                         'query' => 'x',
                                         'fuzziness' => 'AUTO',
-                                        'analyzer' => 'rrr'
-                                    ]
-                                ]
+                                        'analyzer' => 'rrr',
+                                    ],
+                                ],
                             ],
                             [
                                 'multi_match' => [
                                     'fields' => ['c','d'],
                                     'query' => 'e',
                                     'fuzziness' => 'AUTO',
-                                    'type' => 'best_fields'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                    'type' => 'best_fields',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ])
         ->andReturn([
             'hits' => [
@@ -49,13 +49,13 @@ it('can build a should query', function () {
                     ['_source' => []],
                     ['_source' => []],
                     ['_source' => []],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     Blog::elasticsearchQuery()
         ->boolean(
-            fn(Should $should) => $should
+            fn (Should $should) => $should
                 ->match('a', 'b')
                 ->match('z', 'x', analyzer: 'rrr')
                 ->multiMatch(['c', 'd'], 'e')

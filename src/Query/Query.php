@@ -12,13 +12,13 @@ class Query
 {
     private array $params = ['body' => []];
     private array $compounds = [
-        Should::class
+        Should::class,
     ];
     protected array $query;
 
     public function addIndex(string $index): Query
     {
-        $this->params['index'][] = (new $index)->getName();
+        $this->params['index'][] = (new $index())->getName();
 
         return $this;
     }
@@ -37,14 +37,13 @@ class Query
         string|int|float $value,
         string           $analyzer = null,
         string           $fuzziness = 'AUTO'
-    ): Query
-    {
+    ): Query {
         $this->add('match', [
             $field => array_filter([
                 'analyzer' => $analyzer,
                 'query' => $value,
-                'fuzziness' => $fuzziness
-            ])
+                'fuzziness' => $fuzziness,
+            ]),
         ]);
 
         return $this;
@@ -56,8 +55,7 @@ class Query
         string           $analyzer = null,
         string           $fuzziness = 'AUTO',
         string           $type = 'best_fields'
-    ): Query
-    {
+    ): Query {
         $this->add(
             'multi_match',
             array_filter([
@@ -65,8 +63,9 @@ class Query
                 'query' => $value,
                 'fuzziness' => $fuzziness,
                 'type' => $type,
-                'fields' => $fields
-            ]));
+                'fields' => $fields,
+            ])
+        );
 
         return $this;
     }
@@ -86,11 +85,11 @@ class Query
     public function hydrate(): EloquentCollection
     {
         $indices = collect(config('elasticsearch.indices'))
-            ->map(fn($index) => (new $index)->getName())
+            ->map(fn ($index) => (new $index())->getName())
             ->flip();
 
         return EloquentCollection::make($this->executeQuery()['hits']['hits'])->map(
-            fn(array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
+            fn (array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
         );
     }
 
@@ -99,10 +98,11 @@ class Query
         /**
          * @var Model $model
          */
-        $model = new $model;
+        $model = new $model();
 
         $model->exists = true;
-       return $model->forceFill($source + [$model->getKeyName() => $id]);
+
+        return $model->forceFill($source + [$model->getKeyName() => $id]);
     }
 
     private function executeQuery(): array

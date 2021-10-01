@@ -4,7 +4,6 @@ use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
 use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
-use Pest\Expectation;
 
 it('can get results of a query as collection', function () {
     \Pest\Laravel\mock(Client::class)
@@ -16,25 +15,25 @@ it('can get results of a query as collection', function () {
                         '_source' => $blog1 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
-                        ]
+                            'text' => Str::random(),
+                        ],
                     ],
                     [
                         '_source' => $blog2 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
-                        ]
+                            'text' => Str::random(),
+                        ],
                     ],
                     [
                         '_source' => $blog3 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
-                        ]
+                            'text' => Str::random(),
+                        ],
                     ],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     $results = Blog::elasticsearchQuery()->match('title', 'ttt')->get();
@@ -56,30 +55,30 @@ it('can hydrate related model when retrieving results', function () {
                         '_source' => $blog1 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
+                            'text' => Str::random(),
                         ],
-                        '_index' => 'blogs'
+                        '_index' => 'blogs',
                     ],
                     [
                         '_id' => 2,
                         '_source' => $blog2 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
+                            'text' => Str::random(),
                         ],
-                        '_index' => 'blogs'
+                        '_index' => 'blogs',
                     ],
                     [
                         '_id' => 3,
                         '_source' => $blog3 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
-                            'text' => Str::random()
+                            'text' => Str::random(),
                         ],
-                        '_index' => 'blogs'
+                        '_index' => 'blogs',
                     ],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     $results = Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate();
@@ -88,19 +87,19 @@ it('can hydrate related model when retrieving results', function () {
         ->toBeInstanceOf(Collection::class)
         ->toHaveCount(3)
         ->sequence(
-            fn($value) => $value
+            fn ($value) => $value
                 ->id->toEqual(1)
                 ->title->toEqual($blog1['title'])
                 ->description->toEqual($blog1['description'])
                 ->text->toEqual($blog1['text'])
                 ->exists->toBeTrue(),
-            fn($value) => $value
+            fn ($value) => $value
                 ->id->toEqual(2)
                 ->title->toEqual($blog2['title'])
                 ->description->toEqual($blog2['description'])
                 ->text->toEqual($blog2['text'])
                 ->exists->toBeTrue(),
-            fn($value) => $value
+            fn ($value) => $value
                 ->id->toEqual(3)
                 ->title->toEqual($blog3['title'])
                 ->description->toEqual($blog3['description'])

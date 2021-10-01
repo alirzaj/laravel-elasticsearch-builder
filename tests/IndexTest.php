@@ -24,6 +24,6 @@ it('will index a model when it is created', function () {
                 'text' => $blog->text,
                 'description' => $blog->description,
             ],
-            'refresh' => true
+            'refresh' => true,
         ]);
 });

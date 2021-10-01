@@ -11,7 +11,10 @@ use Illuminate\Queue\SerializesModels;
 
 class IndexDocument implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(private string $name, private mixed $id, private array $document)
     {
@@ -29,7 +32,7 @@ class IndexDocument implements ShouldQueue
             'index' => $this->name,
             'id' => $this->id,
             'body' => $this->document,
-            'refresh' => true
+            'refresh' => true,
         ]);
     }
 }

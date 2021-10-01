@@ -50,5 +50,5 @@ abstract class Index
         return $this->name ?? strtolower(class_basename($this));
     }
 
-    public abstract function toIndex(Model $model): array;
+    abstract public function toIndex(Model $model): array;
 }

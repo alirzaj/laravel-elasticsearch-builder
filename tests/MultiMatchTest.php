@@ -15,9 +15,9 @@ it('can build multi match query', function () {
                         'fuzziness' => 'AUTO',
                         'type' => 'best_fields',
                         'fields' => ['field1', 'field2'],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ])
         ->andReturn([
             'hits' => [
@@ -25,8 +25,8 @@ it('can build multi match query', function () {
                     ['_source' => []],
                     ['_source' => []],
                     ['_source' => []],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     Blog::elasticsearchQuery()->multiMatch(['field1', 'field2'], 'test')->get();
@@ -45,9 +45,9 @@ it('can set type of matching and analyzer and fuzziness', function () {
                         'analyzer' => 'aaa',
                         'type' => 'ttt',
                         'fields' => ['field1', 'field2'],
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ])
         ->andReturn([
             'hits' => [
@@ -55,8 +55,8 @@ it('can set type of matching and analyzer and fuzziness', function () {
                     ['_source' => []],
                     ['_source' => []],
                     ['_source' => []],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     Blog::elasticsearchQuery()

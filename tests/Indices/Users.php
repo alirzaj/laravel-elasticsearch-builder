@@ -20,25 +20,25 @@ class Users extends Index
         'text' => [
             'hashtags' => [
                 'type' => 'text',
-                'analyzer' => 'hashtag'
-            ]
-        ]
+                'analyzer' => 'hashtag',
+            ],
+        ],
     ];
 
     public array $analyzers = [
         'hashtag' => [
             'type' => 'custom',
             'tokenizer' => 'hashtag_tokenizer',
-            'filter' => ['lowercase']
-        ]
+            'filter' => ['lowercase'],
+        ],
     ];
 
     public array $tokenizers = [
         'hashtag_tokenizer' => [
             'type' => 'pattern',
             'pattern' => '#\S+',
-            'group' => 0
-        ]
+            'group' => 0,
+        ],
     ];
 
     public function toIndex(Model $model): array

@@ -14,11 +14,11 @@ it('can add multiple indexes to the query', function () {
                     'match' => [
                         'field' => [
                             'query' => 'test',
-                            'fuzziness' => 'AUTO'
-                        ]
-                    ]
-                ]
-            ]
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ],
+            ],
         ])
         ->andReturn([
             'hits' => [
@@ -26,8 +26,8 @@ it('can add multiple indexes to the query', function () {
                     ['_source' => []],
                     ['_source' => []],
                     ['_source' => []],
-                ]
-            ]
+                ],
+            ],
         ]);
 
     Blog::elasticsearchQuery()->addIndex(Users::class)->match('field', 'test')->get();

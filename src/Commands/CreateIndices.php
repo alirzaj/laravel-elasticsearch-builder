@@ -45,7 +45,7 @@ class CreateIndices extends Command
     public function handle()
     {
         collect(config('elasticsearch.indices'))
-            ->map(fn(string $index) => new $index)
+            ->map(fn (string $index) => new $index())
             ->each(function (Index $index) {
                 $this->info("creating {$index->getName()}");
 
@@ -69,18 +69,18 @@ class CreateIndices extends Command
                 'settings' => [
                     'analysis' => [
                         'analyzer' => $index->analyzers ?? [],
-                        'tokenizer' => $index->tokenizers ?? []
-                    ]
+                        'tokenizer' => $index->tokenizers ?? [],
+                    ],
                 ],
                 'mappings' => [
                     'properties' => collect($index->properties)
-                        ->map(fn(string $type, string $name) => [
+                        ->map(fn (string $type, string $name) => [
                             'type' => $type,
-                            'fields' => $index->fields[$name] ?? []
+                            'fields' => $index->fields[$name] ?? [],
                         ])
-                        ->toArray()
-                ]
-            ]
+                        ->toArray(),
+                ],
+            ],
         ]);
     }
 }

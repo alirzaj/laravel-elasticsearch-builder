@@ -40,7 +40,7 @@ class TestCase extends Orchestra
 
         $app['config']->set('elasticsearch.indices', [
             Blog::class => Blogs::class,
-            User::class => Users::class
+            User::class => Users::class,
         ]);
     }
 
