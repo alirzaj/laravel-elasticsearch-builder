@@ -3,6 +3,7 @@
 namespace Alirzaj\ElasticsearchBuilder;
 
 use Alirzaj\ElasticsearchBuilder\Jobs\IndexDocument;
+use Alirzaj\ElasticsearchBuilder\Query\Query;
 use Illuminate\Database\Eloquent\Model;
 
 trait Searchable
@@ -22,5 +23,10 @@ trait Searchable
 
             IndexDocument::dispatch($index->getName(), $model->getKey(), $index->toIndex($model));
         });
+    }
+
+    public static function elasticsearchQuery(): Query
+    {
+        return (new Query())->addIndex(config('elasticsearch.indices.' . self::class));
     }
 }
