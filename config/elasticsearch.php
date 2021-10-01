@@ -17,5 +17,10 @@ return [
      */
     'indices' => [
         // 'Model::class' => Index::Class
-    ]
+    ],
+
+    /**
+     * Specify how many times should the operation be retried when a conflict occur
+     */
+    'retry_on_conflict' => 3,
 ];

@@ -3,6 +3,7 @@
 namespace Alirzaj\ElasticsearchBuilder;
 
 use Alirzaj\ElasticsearchBuilder\Jobs\IndexDocument;
+use Alirzaj\ElasticsearchBuilder\Jobs\UpdateDocument;
 use Alirzaj\ElasticsearchBuilder\Query\Query;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,13 +17,21 @@ trait Searchable
     public static function bootSearchable()
     {
         static::created(function (Model $model) {
-            /**
-             * @var $index \Alirzaj\ElasticsearchBuilder\Index
-             */
-            $index = new (config('elasticsearch.indices')[$model::class]);
+            $index = $model->elasticsearchIndex();
 
             IndexDocument::dispatch($index->getName(), $model->getKey(), $index->toIndex($model));
         });
+
+        static::updated(function (Model $model){
+            $index = $model->elasticsearchIndex();
+
+            UpdateDocument::dispatch($index->getName(), $model->getKey(), $index->toIndex($model));
+        });
+    }
+
+    protected function elasticsearchIndex(): Index
+    {
+        return new (config('elasticsearch.indices')[$this::class]);
     }
 
     public static function elasticsearchQuery(): Query
