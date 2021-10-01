@@ -1,8 +1,6 @@
 # a query builder for elasticsearch database
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/alirzaj/laravel-elasticsearch-builder.svg?style=flat-square)](https://packagist.org/packages/alirzaj/laravel-elasticsearch-builder)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/alirzaj/laravel-elasticsearch-builder/run-tests?label=tests)](https://github.com/alirzaj/laravel-elasticsearch-builder/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/alirzaj/laravel-elasticsearch-builder/Check%20&%20fix%20styling?label=code%20style)](https://github.com/alirzaj/laravel-elasticsearch-builder/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/alirzaj/laravel-elasticsearch-builder.svg?style=flat-square)](https://packagist.org/packages/alirzaj/laravel-elasticsearch-builder)
 
 ---
