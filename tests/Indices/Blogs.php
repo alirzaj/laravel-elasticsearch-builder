@@ -3,7 +3,6 @@
 namespace Alirzaj\ElasticsearchBuilder\Tests\Indices;
 
 use Alirzaj\ElasticsearchBuilder\Index;
-use Illuminate\Database\Eloquent\Model;
 
 class Blogs extends Index
 {
@@ -12,13 +11,4 @@ class Blogs extends Index
         'title' => 'keyword',
         'description' => 'completion',
     ];
-
-    public function toIndex(Model $model): array
-    {
-        return [
-            'title' => $model->title,
-            'text' => $model->text,
-            'description' => $model->description,
-        ];
-    }
 }

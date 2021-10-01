@@ -17,16 +17,25 @@ trait Searchable
     public static function bootSearchable()
     {
         static::created(function (Model $model) {
-            $index = $model->elasticsearchIndex();
-
-            IndexDocument::dispatch($index->getName(), $model->getKey(), $index->toIndex($model));
+            IndexDocument::dispatch(
+                $model->elasticsearchIndex()->getName(),
+                $model->getKey(),
+                $model->toIndex()
+            );
         });
 
-        static::updated(function (Model $model){
-            $index = $model->elasticsearchIndex();
-
-            UpdateDocument::dispatch($index->getName(), $model->getKey(), $index->toIndex($model));
+        static::updated(function (Model $model) {
+            UpdateDocument::dispatch(
+                $model->elasticsearchIndex()->getName(),
+                $model->getKey(),
+                $model->toIndex($model)
+            );
         });
+    }
+
+    public function toIndex(): array
+    {
+        return $this->toArray();
     }
 
     protected function elasticsearchIndex(): Index

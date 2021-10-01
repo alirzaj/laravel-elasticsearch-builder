@@ -40,9 +40,4 @@ class Users extends Index
             'group' => 0,
         ],
     ];
-
-    public function toIndex(Model $model): array
-    {
-        return [];
-    }
 }

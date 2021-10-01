@@ -12,4 +12,13 @@ class Blog extends Model
     public $table = 'blogs';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function toIndex() : array
+    {
+        return [
+            'title' => $this->title,
+            'text' => $this->text,
+            'description' => $this->description,
+        ];
+    }
 }
