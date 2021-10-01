@@ -55,6 +55,7 @@ class ElasticsearchBuilderServiceProvider extends ServiceProvider
             );
 
             if ($this->app->environment('local', 'testing')) {
+                //TODO test
                 $client->setLogger(
                     (new Logger('elasticsearch'))->pushHandler(
                         new StreamHandler(storage_path('logs/elastic.log'), Logger::DEBUG)
