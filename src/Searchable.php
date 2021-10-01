@@ -28,7 +28,7 @@ trait Searchable
             UpdateDocument::dispatch(
                 $model->elasticsearchIndex()->getName(),
                 $model->getKey(),
-                $model->toIndex($model)
+                $model->toIndex()
             );
         });
     }
