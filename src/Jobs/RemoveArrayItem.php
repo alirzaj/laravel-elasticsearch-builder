@@ -20,8 +20,7 @@ class RemoveArrayItem implements ShouldQueue
         private string $name,
         private string $field,
         private mixed  $search
-    )
-    {
+    ) {
         $this->onQueue(config('elasticsearch.queue'));
     }
 
@@ -40,16 +39,16 @@ class RemoveArrayItem implements ShouldQueue
                     'source' => "ctx._source.$this->field.remove(ctx._source.$this->field.indexOf(params.search));",
                     'params' => [
                         'search' => $this->search,
-                    ]
+                    ],
                 ],
                 'query' => [
                     'bool' => [
                         'filter' => [
-                            'term' => [$this->field => $this->search]
-                        ]
-                    ]
-                ]
-            ]
+                            'term' => [$this->field => $this->search],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 }

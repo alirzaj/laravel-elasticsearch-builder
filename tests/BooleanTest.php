@@ -58,7 +58,7 @@ it('can build a should query', function () {
 
     Blog::elasticsearchQuery()
         ->boolean(
-            fn(Should $should) => $should
+            fn (Should $should) => $should
                 ->match('a', 'b')
                 ->match('z', 'x', analyzer: 'rrr')
                 ->multiMatch(['c', 'd'], 'e')
@@ -87,7 +87,7 @@ it('can build a filter query', function () {
                                 'term' => [
                                     'z' => [
                                         'value' => 'x',
-                                        'boost' => 1.0
+                                        'boost' => 1.0,
                                     ],
                                 ],
                             ],
@@ -108,7 +108,7 @@ it('can build a filter query', function () {
 
     Blog::elasticsearchQuery()
         ->boolean(
-            fn(Filter $filter) => $filter
+            fn (Filter $filter) => $filter
                 ->match('a', 'b')
                 ->term('z', 'x')
         )
@@ -136,13 +136,13 @@ it('can build a must not query', function () {
                                 'term' => [
                                     'z' => [
                                         'value' => 'x',
-                                        'boost' => 1.0
+                                        'boost' => 1.0,
                                     ],
                                 ],
                             ],
                             [
-                                'exists' => ['field' => 'description']
-                            ]
+                                'exists' => ['field' => 'description'],
+                            ],
                         ],
                     ],
                 ],
@@ -160,7 +160,7 @@ it('can build a must not query', function () {
 
     Blog::elasticsearchQuery()
         ->boolean(
-            fn(MustNot $mustNot) => $mustNot
+            fn (MustNot $mustNot) => $mustNot
                 ->match('a', 'b')
                 ->term('z', 'x')
                 ->exists('description')
@@ -189,13 +189,13 @@ it('can build a must query', function () {
                                 'term' => [
                                     'z' => [
                                         'value' => 'x',
-                                        'boost' => 1.0
+                                        'boost' => 1.0,
                                     ],
                                 ],
                             ],
                             [
-                                'exists' => ['field' => 'description']
-                            ]
+                                'exists' => ['field' => 'description'],
+                            ],
                         ],
                     ],
                 ],
@@ -213,7 +213,7 @@ it('can build a must query', function () {
 
     Blog::elasticsearchQuery()
         ->boolean(
-            fn(Must $must) => $must
+            fn (Must $must) => $must
                 ->match('a', 'b')
                 ->term('z', 'x')
                 ->exists('description')

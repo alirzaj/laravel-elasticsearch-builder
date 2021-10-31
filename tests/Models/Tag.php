@@ -23,7 +23,7 @@ class Tag extends Model
                     'tags' => static::query()
                         ->where('blog_id', $tag->blog_id)
                         ->pluck('tag_name')
-                        ->toArray()
+                        ->toArray(),
                 ]
             );
         });

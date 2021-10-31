@@ -37,11 +37,11 @@ class TestCase extends Orchestra
         $app['config']->set('database.default', 'mysql');
 
         $app['config']->set('database.connections.mysql', [
-            'driver'   => 'mysql',
+            'driver' => 'mysql',
             'database' => 'elastic-builder',
             'host' => '127.0.0.1',
-            'username'   => 'root',
-            'password' => ''
+            'username' => 'root',
+            'password' => '',
         ]);
 
 

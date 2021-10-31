@@ -20,15 +20,15 @@ it('can build disjunction max query', function () {
                                         'query' => 'b',
                                         'fuzziness' => 'AUTO',
                                     ],
-                                ]
+                                ],
                             ],
                             [
                                 'term' => [
                                     'c' => [
                                         'value' => 'd',
-                                        'boost' => 1.0
+                                        'boost' => 1.0,
                                     ],
-                                ]
+                                ],
                             ],
                             [
                                 'bool' => [
@@ -36,21 +36,21 @@ it('can build disjunction max query', function () {
                                         [
                                             'exists' => [
                                                 'field' => 'f',
-                                            ]
+                                            ],
                                         ],
                                         [
                                             'term' => [
                                                 'g' => [
                                                     'value' => 'h',
-                                                    'boost' => 1.0
+                                                    'boost' => 1.0,
                                                 ],
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ])
@@ -66,10 +66,10 @@ it('can build disjunction max query', function () {
 
     Blog::elasticsearchQuery()
         ->disjunctionMax(
-            fn(Query $query) => $query->match('a', 'b'),
-            fn(Query $query) => $query->term('c', 'd'),
-            fn(Query $query) => $query->boolean(
-                fn(Should $should) => $should
+            fn (Query $query) => $query->match('a', 'b'),
+            fn (Query $query) => $query->term('c', 'd'),
+            fn (Query $query) => $query->boolean(
+                fn (Should $should) => $should
                     ->exists('f')
                     ->term('g', 'h')
             ),

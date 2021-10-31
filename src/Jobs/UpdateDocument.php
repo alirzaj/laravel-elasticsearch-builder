@@ -34,8 +34,8 @@ class UpdateDocument implements ShouldQueue
             'index' => $this->name,
             'id' => $this->id,
             'body' => [
-                'doc' => $this->document
-            ]
+                'doc' => $this->document,
+            ],
         ]);
     }
 }

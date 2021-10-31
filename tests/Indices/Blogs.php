@@ -10,6 +10,6 @@ class Blogs extends Index
         'text' => 'text',
         'title' => 'keyword',
         'description' => 'completion',
-        'tags' => 'keyword'
+        'tags' => 'keyword',
     ];
 }

@@ -21,8 +21,7 @@ class UpdateArrayItem implements ShouldQueue
         private string $field,
         private mixed  $search,
         private mixed  $replace
-    )
-    {
+    ) {
         $this->onQueue(config('elasticsearch.queue'));
     }
 
@@ -44,17 +43,17 @@ class UpdateArrayItem implements ShouldQueue
                         ",
                     'params' => [
                         'search' => $this->search,
-                        'replace' => $this->replace
-                    ]
+                        'replace' => $this->replace,
+                    ],
                 ],
                 'query' => [
                     'bool' => [
                         'filter' => [
-                            'term' => [$this->field => $this->search]
-                        ]
-                    ]
-                ]
-            ]
+                            'term' => [$this->field => $this->search],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 }

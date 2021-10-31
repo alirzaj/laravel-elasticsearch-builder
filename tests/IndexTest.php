@@ -40,7 +40,7 @@ it('will update the document that belongs to a model after its updated', functio
 
     $blog->update($updateAttributes = [
         'title' => Str::random(),
-        'description' => Str::random()
+        'description' => Str::random(),
     ]);
 
     $client
@@ -52,8 +52,8 @@ it('will update the document that belongs to a model after its updated', functio
             'id' => $blog->id,
             'retry_on_conflict' => config('elasticsearch.retry_on_conflict'),
             'body' => [
-                'doc' => $updateAttributes + ['text' => $blog->text]
-            ]
+                'doc' => $updateAttributes + ['text' => $blog->text],
+            ],
         ]);
 });
 
@@ -84,17 +84,17 @@ it('can update an item of array field', function () {
                         ",
                     'params' => [
                         'search' => 'name of tag',
-                        'replace' => 'new tag name'
-                    ]
+                        'replace' => 'new tag name',
+                    ],
                 ],
                 'query' => [
                     'bool' => [
                         'filter' => [
-                            'term' => ['tags' => 'name of tag']
-                        ]
-                    ]
-                ]
-            ]
+                            'term' => ['tags' => 'name of tag'],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 });
 
@@ -122,15 +122,15 @@ it('can update remove an item of array field', function () {
                     'source' => "ctx._source.tags.remove(ctx._source.tags.indexOf(params.search));",
                     'params' => [
                         'search' => 'name of tag',
-                    ]
+                    ],
                 ],
                 'query' => [
                     'bool' => [
                         'filter' => [
-                            'term' => ['tags' => 'name of tag']
-                        ]
-                    ]
-                ]
-            ]
+                            'term' => ['tags' => 'name of tag'],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 });

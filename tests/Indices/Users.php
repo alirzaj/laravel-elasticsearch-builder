@@ -3,7 +3,6 @@
 namespace Alirzaj\ElasticsearchBuilder\Tests\Indices;
 
 use Alirzaj\ElasticsearchBuilder\Index;
-use Illuminate\Database\Eloquent\Model;
 
 class Users extends Index
 {

@@ -13,7 +13,7 @@ it('can build a term query', function () {
                     'term' => [
                         'field' => [
                             'value' => 'aaa',
-                            'boost' => 1.5
+                            'boost' => 1.5,
                         ],
                     ],
                 ],
