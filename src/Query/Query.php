@@ -35,6 +35,11 @@ class Query
         return $this;
     }
 
+    public function toArray(): array
+    {
+        return $this->query;
+    }
+
     public function match(
         string           $field,
         string|int|float $value,
@@ -42,34 +47,28 @@ class Query
         string           $fuzziness = 'AUTO'
     ): Query
     {
-        $this->add('match', [
+        return $this->add('match', [
             $field => array_filter([
                 'analyzer' => $analyzer,
                 'query' => $value,
                 'fuzziness' => $fuzziness,
             ]),
         ]);
-
-        return $this;
     }
 
     public function term(string $field, string|int|float $value, int|float $boost = 1.0): Query
     {
-        $this->add('term', [
+        return $this->add('term', [
             $field => [
                 'value' => $value,
                 'boost' => $boost,
             ],
         ]);
-
-        return $this;
     }
 
     public function exists(string $field): Query
     {
-        $this->add('exists', ['field' => $field]);
-
-        return $this;
+        return $this->add('exists', ['field' => $field]);
     }
 
     public function multiMatch(
@@ -80,7 +79,7 @@ class Query
         string           $type = 'best_fields'
     ): Query
     {
-        $this->add(
+        return $this->add(
             'multi_match',
             array_filter([
                 'analyzer' => $analyzer,
@@ -90,15 +89,18 @@ class Query
                 'fields' => $fields,
             ])
         );
+    }
 
         return $this;
     }
 
-    private function add(string $name, array $query): void
+    private function add(string $name, array $query): self
     {
         in_array($this::class, $this->compounds) ?
             $this->query[][$name] = $query :
             $this->query[$name] = $query;
+
+        return $this;
     }
 
     public function get(): Collection
