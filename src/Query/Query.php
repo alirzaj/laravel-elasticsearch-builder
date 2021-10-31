@@ -26,6 +26,7 @@ class Query
         return $this;
     }
 
+    //TODO add options (minimum should match)
     public function boolean(Closure ...$queries): Query
     {
         foreach ($queries as $query) {
@@ -91,7 +92,17 @@ class Query
         );
     }
 
-        return $this;
+    //TODO add options (tie breaker)
+    public function disjunctionMax(Closure ...$queries): self
+    {
+        return $this->add(
+            'dis_max',
+            [
+                'queries' => collect($queries)
+                    ->map(fn($query) => app()->call($query)->toArray())
+                    ->toArray()
+            ]
+        );
     }
 
     private function add(string $name, array $query): self
