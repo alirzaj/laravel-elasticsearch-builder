@@ -1,20 +1,19 @@
 <?php
 
-use Alirzaj\ElasticsearchBuilder\Tests\Indices\Users;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
 use Elasticsearch\Client;
 
-it('can add multiple indexes to the query', function () {
+it('can build a term query', function () {
     \Pest\Laravel\mock(Client::class)
         ->shouldReceive('search')
         ->with([
-            'index' => ['blogs', 'users_index'],
+            'index' => ['blogs'],
             'body' => [
                 'query' => [
-                    'match' => [
+                    'term' => [
                         'field' => [
-                            'query' => 'test',
-                            'fuzziness' => 'AUTO',
+                            'value' => 'aaa',
+                            'boost' => 1.5
                         ],
                     ],
                 ],
@@ -30,5 +29,5 @@ it('can add multiple indexes to the query', function () {
             ],
         ]);
 
-    Blog::elasticsearchQuery()->addIndex(Users::class)->match('field', 'test')->get();
+    Blog::elasticsearchQuery()->term('field', 'aaa', 1.5)->get();
 });

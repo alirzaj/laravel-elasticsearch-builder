@@ -1,21 +1,17 @@
 <?php
 
-use Alirzaj\ElasticsearchBuilder\Tests\Indices\Users;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
 use Elasticsearch\Client;
 
-it('can add multiple indexes to the query', function () {
+it('can build exists query', function () {
     \Pest\Laravel\mock(Client::class)
         ->shouldReceive('search')
         ->with([
-            'index' => ['blogs', 'users_index'],
+            'index' => ['blogs'],
             'body' => [
                 'query' => [
-                    'match' => [
-                        'field' => [
-                            'query' => 'test',
-                            'fuzziness' => 'AUTO',
-                        ],
+                    'exists' => [
+                        'field' => 'title',
                     ],
                 ],
             ],
@@ -30,5 +26,5 @@ it('can add multiple indexes to the query', function () {
             ],
         ]);
 
-    Blog::elasticsearchQuery()->addIndex(Users::class)->match('field', 'test')->get();
+    Blog::elasticsearchQuery()->exists('title')->get();
 });

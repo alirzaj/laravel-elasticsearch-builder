@@ -13,12 +13,17 @@ class Blog extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-    public function toIndex() : array
+    public function toIndex(): array
     {
         return [
             'title' => $this->title,
             'text' => $this->text,
             'description' => $this->description,
         ];
+    }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'blog_id', 'id');
     }
 }

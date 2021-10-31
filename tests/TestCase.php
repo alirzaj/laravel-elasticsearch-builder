@@ -34,9 +34,16 @@ class TestCase extends Orchestra
      */
     protected function defineEnvironment($app)
     {
-        $app['config']->set('database.connections.mysql.database', 'elastic-builder');
-        $app['config']->set('database.connections.mysql.username', 'root');
-        $app['config']->set('database.connections.mysql.password', '');
+        $app['config']->set('database.default', 'mysql');
+
+        $app['config']->set('database.connections.mysql', [
+            'driver'   => 'mysql',
+            'database' => 'elastic-builder',
+            'host' => '127.0.0.1',
+            'username'   => 'root',
+            'password' => ''
+        ]);
+
 
         $app['config']->set('elasticsearch.indices', [
             Blog::class => Blogs::class,

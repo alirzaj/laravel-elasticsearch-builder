@@ -93,6 +93,10 @@ it('can create indices', function () {
                             'type' => 'completion',
                             'fields' => [],
                         ],
+                        'tags' => [
+                            'type' => 'keyword',
+                            'fields' => [],
+                        ],
                     ],
                 ],
             ],
