@@ -40,7 +40,8 @@ class Query
         string|int|float $value,
         string           $analyzer = null,
         string           $fuzziness = 'AUTO'
-    ): Query {
+    ): Query
+    {
         $this->add('match', [
             $field => array_filter([
                 'analyzer' => $analyzer,
@@ -58,7 +59,8 @@ class Query
         string           $analyzer = null,
         string           $fuzziness = 'AUTO',
         string           $type = 'best_fields'
-    ): Query {
+    ): Query
+    {
         $this->add(
             'multi_match',
             array_filter([
