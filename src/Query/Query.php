@@ -53,6 +53,25 @@ class Query
         return $this;
     }
 
+    public function term(string $field, string|int|float $value, int|float $boost = 1.0): Query
+    {
+        $this->add('term', [
+            $field => [
+                'value' => $value,
+                'boost' => $boost,
+            ],
+        ]);
+
+        return $this;
+    }
+
+    public function exists(string $field): Query
+    {
+        $this->add('exists', ['field' => $field]);
+
+        return $this;
+    }
+
     public function multiMatch(
         array            $fields,
         string|int|float $value,
@@ -90,11 +109,11 @@ class Query
     public function hydrate(): EloquentCollection
     {
         $indices = collect(config('elasticsearch.indices'))
-            ->map(fn ($index) => (new $index())->getName())
+            ->map(fn($index) => (new $index())->getName())
             ->flip();
 
         return EloquentCollection::make($this->executeQuery()['hits']['hits'])->map(
-            fn (array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
+            fn(array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
         );
     }
 
