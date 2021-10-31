@@ -13,6 +13,9 @@ class Query
     private array $params = ['body' => []];
     private array $compounds = [
         Should::class,
+        Filter::class,
+        MustNot::class,
+        Must::class,
     ];
     protected array $query;
 
