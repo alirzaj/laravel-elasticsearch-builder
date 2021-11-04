@@ -4,14 +4,16 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/alirzaj/laravel-elasticsearch-builder.svg?style=flat-square)](https://packagist.org/packages/alirzaj/laravel-elasticsearch-builder)
 
 ---
-This package can build queries for elasticsearch database and provide an easy way to add Eloquent models to an elasticsearch index.
+This package can build queries for elasticsearch database and provides an easy way to add Eloquent models to an elasticsearch index.
 
-It is not trying to provide Eloquent-like api to work with elasticsearch. instead it will give you methods that are much like writing a query in elasticsearch but in a more object oriented and nicer way.
+It is not trying to provide Eloquent-like api to work with elasticsearch. instead, it will give you methods that are much like writing a query in elasticsearch but in a more object-oriented and nicer way.
 
-I'm developing this package in a use-case driven approach (I add features as I need them in on my projects) but if you feel the need of a method or feature feel free to open an issue and I will try to implement it as soon as possible.
+this package contains the queries that I needed on my projects. so if you feel the need of a method or feature please open an issue, and I will try to implement it as soon as possible.
 
 ## Installation 
+to install this package, require it via composer:
 
+`composer require alirzaj/laravel-elasticsearch-builder`
 
 ## Testing
 
