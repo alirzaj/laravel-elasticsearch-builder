@@ -89,6 +89,7 @@ you can use **`Alirzaj\ElasticsearchBuilder\Searchable`** trait in Eloquent mode
 
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
+
 `Model::elasticsearchQuery()`
 
 you can also start querying indices by instantiating the **`Query`** class:
@@ -96,6 +97,7 @@ you can also start querying indices by instantiating the **`Query`** class:
 
 # include an index in query:
 you can add an index to the indices that are being queried:
+
 `**Blog::elasticsearchQuery()->addIndex(Users::class);**`
 
 # match 
