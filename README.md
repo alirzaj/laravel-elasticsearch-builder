@@ -96,7 +96,7 @@ you can also start querying indices by instantiating the **`Query`** class:
 # include an index in query:
 you can add an index to the indices that are being queried:
 
-`**Blog::elasticsearchQuery()->addIndex(Users::class);**`
+`Blog::elasticsearchQuery()->addIndex(Users::class);`
 
 # match 
 you can use named arguments to only pass the options you need.
