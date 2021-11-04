@@ -112,9 +112,13 @@ you can use named arguments to only pass the options you need.
 
 # nested
 `Blog::elasticsearchQuery()->nested(
+
     fn (Query $query) => $query->match('field', 'value'), //query
+    
     'driver.vehicle', //path
+    
     'sum',//score mode
+    
     true //ignore_unmapped
 );`
 
