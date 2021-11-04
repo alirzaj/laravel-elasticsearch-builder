@@ -126,7 +126,7 @@ you can use named arguments to only pass the options you need.
 `Blog::elasticsearchQuery()->exists('title');`
 
 # bool
-`Blog::elasticsearchQuery()
+Blog::elasticsearchQuery()
     ->boolean(
         fn (Must $must) => $must
             ->match('a', 'b')
@@ -141,7 +141,7 @@ you can use named arguments to only pass the options you need.
             ->match('a', 'b')
             ->match('z', 'x', analyzer: 'custom-analyzer')
             ->multiMatch(['c', 'd'], 'e')
-    );`
+    );
 
 # term
 `Blog::elasticsearchQuery()->term('field', 'value', 1.5);`
