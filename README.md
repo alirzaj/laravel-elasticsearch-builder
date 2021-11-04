@@ -100,14 +100,15 @@ you can add an index to the indices that are being queried:
 
 # match 
 you can use named arguments to only pass the options you need.
+
 `Blog::elasticsearchQuery()->match('field', 'value', 'analyzer', 'fuzziness');`
 
 # match_all
 `blog::elasticsearchQuery()->matchAll(1.7);`
 
 # multi_match
-`Blog::elasticsearchQuery()
-->multiMatch(['field1', 'field2'], 'value', 'analyzer', 'fuzziness', 'type');`
+
+`Blog::elasticsearchQuery()->multiMatch(['field1', 'field2'], 'value', 'analyzer', 'fuzziness', 'type');`
 
 # nested
 `Blog::elasticsearchQuery()->nested(
