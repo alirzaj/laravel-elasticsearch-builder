@@ -10,14 +10,14 @@ It is not trying to provide Eloquent-like api to work with elasticsearch. instea
 
 this package contains the queries that I needed on my projects. so if you feel the need of a method or feature please open an issue, and I will try to implement it as soon as possible.
 
-## Installation 
+# Installation 
 to install this package, require it via composer:
 
 `composer require alirzaj/laravel-elasticsearch-builder`
 
 ## Usage
 
-##define indices
+# define indices
 first you need to define index classes. an index class must extend the **Alirzaj\ElasticsearchBuilder\Index** class. here is an example:
 
 
@@ -76,38 +76,38 @@ if you don't define `$name` index name will equal to class name.
 
 `$properties` is the only property that you **must** define.
 
-##create indices
+# create indices
 to create the indices defined in previous step, run **`php artisan elastic:create-indices`**
 
-##configuration
+# configuration
 publish the package's config file using **`php artisan vendor:publish --provider="Alirzaj\\ElasticsearchBuilder\\ElasticsearchBuilderServiceProvider"`** command. all options have description in file.
 
-##making models searchable
+# making models searchable
 you can use **`Alirzaj\ElasticsearchBuilder\Searchable`** trait in Eloquent models. this trait will automatically add & update documents in elasticsearch on the corresponding index. you can override **`toIndex`** method on your models to control the attributes that will save on elasticsearch. default behaviour is array representation of the model (toArray).
 
-##querying indices
+# querying indices
 if you have searchable models you can begin to query the corresponding index like this:
 `Model::elasticsearchQuery()`
 
 you can also start querying indices by instantiating the **`Query`** class:
 `new \Alirzaj\ElasticsearchBuilder\Query();`
 
-#include an index in query:
+# include an index in query:
 you can add an index to the indices that are being queried:
 `**Blog::elasticsearchQuery()->addIndex(Users::class);**`
 
-##match 
+# match 
 you can use named arguments to only pass the options you need.
 `Blog::elasticsearchQuery()->match('field', 'value', 'analyzer', 'fuzziness');`
 
-##match_all
+# match_all
 `blog::elasticsearchQuery()->matchAll(1.7);`
 
-##multi_match
+# multi_match
 `Blog::elasticsearchQuery()
 ->multiMatch(['field1', 'field2'], 'value', 'analyzer', 'fuzziness', 'type');`
 
-##nested
+# nested
 `Blog::elasticsearchQuery()->nested(
     fn (Query $query) => $query->match('field', 'value'), //query
     'driver.vehicle', //path
@@ -115,10 +115,10 @@ you can use named arguments to only pass the options you need.
     true //ignore_unmapped
 );`
 
-##exists
+# exists
 `Blog::elasticsearchQuery()->exists('title');`
 
-##bool
+# bool
 `Blog::elasticsearchQuery()
     ->boolean(
         fn (Must $must) => $must
@@ -136,10 +136,10 @@ you can use named arguments to only pass the options you need.
             ->multiMatch(['c', 'd'], 'e')
     );`
 
-##term
+# term
 `Blog::elasticsearchQuery()->term('field', 'value', 1.5);`
 
-##dis_max
+# dis_max
 `Blog::elasticsearchQuery()
     ->disjunctionMax(
         fn (Query $query) => $query->match('a', 'b'),
