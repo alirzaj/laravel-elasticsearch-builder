@@ -10,7 +10,7 @@ it('can build a match_all query with default parameters', function () {
             'index' => ['blogs'],
             'body' => [
                 'query' => [
-                    'match_all' => ['boost' => 1]
+                    'match_all' => ['boost' => 1],
                 ],
             ],
         ])
@@ -27,14 +27,14 @@ it('can build a match_all query with default parameters', function () {
     blog::elasticsearchQuery()->matchAll();
 });
 
-it('can build a match_all query and set boost option', function() {
+it('can build a match_all query and set boost option', function () {
     \Pest\Laravel\mock(Client::class)
         ->shouldReceive('search')
         ->with([
             'index' => ['blogs'],
             'body' => [
                 'query' => [
-                    'match_all' => ['boost' => 1.7]
+                    'match_all' => ['boost' => 1.7],
                 ],
             ],
         ])

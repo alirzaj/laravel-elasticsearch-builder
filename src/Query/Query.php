@@ -46,8 +46,7 @@ class Query
         string|int|float $value,
         string           $analyzer = null,
         string           $fuzziness = 'AUTO'
-    ): Query
-    {
+    ): Query {
         return $this->add('match', [
             $field => array_filter([
                 'analyzer' => $analyzer,
@@ -78,8 +77,7 @@ class Query
         string           $analyzer = null,
         string           $fuzziness = 'AUTO',
         string           $type = 'best_fields'
-    ): Query
-    {
+    ): Query {
         return $this->add(
             'multi_match',
             array_filter([
@@ -99,7 +97,7 @@ class Query
             'dis_max',
             [
                 'queries' => collect($queries)
-                    ->map(fn($query) => app()->call($query)->toArray())
+                    ->map(fn ($query) => app()->call($query)->toArray())
                     ->toArray(),
             ]
         );
@@ -140,11 +138,11 @@ class Query
     public function hydrate(): EloquentCollection
     {
         $indices = collect(config('elasticsearch.indices'))
-            ->map(fn($index) => (new $index())->getName())
+            ->map(fn ($index) => (new $index())->getName())
             ->flip();
 
         return EloquentCollection::make($this->executeQuery()['hits']['hits'])->map(
-            fn(array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
+            fn (array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
         );
     }
 

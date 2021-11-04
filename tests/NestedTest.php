@@ -24,7 +24,7 @@ it('can make a nested query and set ignore_unmapped and score mode to default va
                                     'fuzziness' => 'AUTO',
                                 ],
                             ],
-                        ]
+                        ],
                     ],
                 ],
             ],
@@ -40,7 +40,7 @@ it('can make a nested query and set ignore_unmapped and score mode to default va
         ]);
 
     Blog::elasticsearchQuery()->nested(
-        fn(Query $query) => $query->match('field', 'test', 'aaa'),
+        fn (Query $query) => $query->match('field', 'test', 'aaa'),
         'driver.vehicle'
     );
 });
@@ -68,15 +68,15 @@ it('can build a nested query and set options to desired values', function () {
                                 'query' => [
                                     'bool' => [
                                         'must' => [
-                                            ['exists' => 'text']
-                                        ]
+                                            ['exists' => 'text'],
+                                        ],
                                     ],
                                 ],
                                 'ignore_unmapped' => false,
                                 'path' => 'obj.1',
                                 'score_mode' => 'avg',
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -92,12 +92,12 @@ it('can build a nested query and set options to desired values', function () {
         ]);
 
     Blog::elasticsearchQuery()->nested(
-        fn(Query $query) => $query
+        fn (Query $query) => $query
             ->match('field', 'test', 'aaa')
             ->nested(
-                fn(Query $query) => $query
+                fn (Query $query) => $query
                     ->boolean(
-                        fn(Must $query) => $query->exists('text')
+                        fn (Must $query) => $query->exists('text')
                     ),
                 'obj.1'
             ),
