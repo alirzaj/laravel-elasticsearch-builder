@@ -21,7 +21,8 @@ to install this package, require it via composer:
 first you need to define index classes. an index class must extend the **Alirzaj\ElasticsearchBuilder\Index** class. here is an example:
 
 
-`<?php
+`
+<?php
 
 namespace Alirzaj\ElasticsearchBuilder\Tests\Indices;
 
@@ -62,7 +63,8 @@ class Users extends Index
             'group' => 0,
         ],
     ];
-}`
+}
+`
 
 if you don't define `$name` index name will equal to class name.
 
