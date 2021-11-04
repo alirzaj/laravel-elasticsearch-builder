@@ -112,13 +112,9 @@ you can use named arguments to only pass the options you need.
 
 # nested
 `Blog::elasticsearchQuery()->nested(
-
     fn (Query $query) => $query->match('field', 'value'), //query
-    
     'driver.vehicle', //path
-    
     'sum',//score mode
-    
     true //ignore_unmapped
 );`
 
@@ -126,7 +122,7 @@ you can use named arguments to only pass the options you need.
 `Blog::elasticsearchQuery()->exists('title');`
 
 # bool
-Blog::elasticsearchQuery()
+`Blog::elasticsearchQuery()
     ->boolean(
         fn (Must $must) => $must
             ->match('a', 'b')
@@ -141,7 +137,7 @@ Blog::elasticsearchQuery()
             ->match('a', 'b')
             ->match('z', 'x', analyzer: 'custom-analyzer')
             ->multiMatch(['c', 'd'], 'e')
-    );
+    );`
 
 # term
 `Blog::elasticsearchQuery()->term('field', 'value', 1.5);`
