@@ -20,8 +20,8 @@ to install this package, require it via composer:
 # define indices
 first you need to define index classes. an index class must extend the **Alirzaj\ElasticsearchBuilder\Index** class. here is an example:
 
-
-`<?php
+```php
+<?php
 
 namespace Alirzaj\ElasticsearchBuilder\Tests\Indices;
 
@@ -62,7 +62,8 @@ class Users extends Index
             'group' => 0,
         ],
     ];
-}`
+}
+```
 
 if you don't define `$name` index name will equal to class name.
 
@@ -88,7 +89,9 @@ you can use **`Alirzaj\ElasticsearchBuilder\Searchable`** trait in Eloquent mode
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
 
-`Model::elasticsearchQuery()`
+```php
+Model::elasticsearchQuery()
+```
 
 you can also start querying indices by instantiating the **`Query`** class:
 `new \Alirzaj\ElasticsearchBuilder\Query();`
@@ -96,33 +99,45 @@ you can also start querying indices by instantiating the **`Query`** class:
 # include an index in query:
 you can add an index to the indices that are being queried:
 
-`Blog::elasticsearchQuery()->addIndex(Users::class);`
+```php
+Blog::elasticsearchQuery()->addIndex(Users::class);
+```
 
 # match 
 you can use named arguments to only pass the options you need.
 
-`Blog::elasticsearchQuery()->match('field', 'value', 'analyzer', 'fuzziness');`
+```php
+Blog::elasticsearchQuery()->match('field', 'value', 'analyzer', 'fuzziness');
+```
 
 # match_all
-`blog::elasticsearchQuery()->matchAll(1.7);`
+```php
+Blog::elasticsearchQuery()->matchAll(1.7);
+```
 
 # multi_match
-
-`Blog::elasticsearchQuery()->multiMatch(['field1', 'field2'], 'value', 'analyzer', 'fuzziness', 'type');`
+```php
+Blog::elasticsearchQuery()->multiMatch(['field1', 'field2'], 'value', 'analyzer', 'fuzziness', 'type');
+```
 
 # nested
-`Blog::elasticsearchQuery()->nested(
+```php
+Blog::elasticsearchQuery()->nested(
     fn (Query $query) => $query->match('field', 'value'), //query
     'driver.vehicle', //path
     'sum',//score mode
     true //ignore_unmapped
-);`
+);
+```
 
 # exists
-`Blog::elasticsearchQuery()->exists('title');`
+```php
+Blog::elasticsearchQuery()->exists('title');
+```
 
 # bool
-`Blog::elasticsearchQuery()
+```php
+Blog::elasticsearchQuery()
     ->boolean(
         fn (Must $must) => $must
             ->match('a', 'b')
@@ -137,13 +152,17 @@ you can use named arguments to only pass the options you need.
             ->match('a', 'b')
             ->match('z', 'x', analyzer: 'custom-analyzer')
             ->multiMatch(['c', 'd'], 'e')
-    );`
+    );
+```
 
 # term
-`Blog::elasticsearchQuery()->term('field', 'value', 1.5);`
+```php
+Blog::elasticsearchQuery()->term('field', 'value', 1.5);
+```
 
 # dis_max
-`Blog::elasticsearchQuery()
+```php
+Blog::elasticsearchQuery()
     ->disjunctionMax(
         fn (Query $query) => $query->match('a', 'b'),
         fn (Query $query) => $query->boolean(
@@ -151,8 +170,8 @@ you can use named arguments to only pass the options you need.
                  ->exists('f')
                  ->term('g', 'h')
           ),
-    );`
-
+    );
+```
 
 ## Testing
 
