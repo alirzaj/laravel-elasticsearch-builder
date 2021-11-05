@@ -148,9 +148,7 @@ class Query
 
     private function toModel(string $model, mixed $id, array $source): Model
     {
-        /**
-         * @var Model $model
-         */
+        /** @var Model $model */
         $model = new $model();
 
         $model->exists = true;
