@@ -197,7 +197,8 @@ Blog::elasticsearchQuery()
     );
 ```
 
-#working with array fields
+# working with array fields
+
 this package provides two jobs for updating/removing an item from an array field:
 
 ```php
