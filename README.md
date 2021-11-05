@@ -75,7 +75,7 @@ if you don't define `$name` index name will equal to class name.
 
 `$tokenizers` contains config for tokenizers.
 
-`$properties` is the only property that you **must** define.
+ the only property that you **must** define is `$properties`.
 
 # create indices
 to create the indices defined in previous step, run **`php artisan elastic:create-indices`**
