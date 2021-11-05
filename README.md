@@ -113,7 +113,10 @@ Model::elasticsearchQuery()
 ```
 
 you can also start querying indices by instantiating the **`Query`** class:
-`new \Alirzaj\ElasticsearchBuilder\Query();`
+
+```php
+new \Alirzaj\ElasticsearchBuilder\Query();
+```
 
 # include an index in query:
 you can add an index to the indices that are being queried:
