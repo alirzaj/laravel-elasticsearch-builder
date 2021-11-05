@@ -1,7 +1,6 @@
 # Changelog
 
-All notable changes to `laravel-elasticsearch-builder` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## 0.16.0 - 2021-11-XX04
 
 - initial release
