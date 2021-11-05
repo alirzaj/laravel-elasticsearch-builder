@@ -206,7 +206,7 @@ RemoveArrayItem::dispatch('index_name', 'array_field_name', 'value_to_remove');
 UpdateArrayItem::dispatch('index_name', 'array_field_name', 'old_value', 'new_value');
 ```
 
-#getting results
+# getting results
 after writing a query, you can call `get()` to get the results as a collection.
 
 ```php
@@ -218,7 +218,7 @@ you can also hydrate the results as eloquent models:
 Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate(); //an Eloquent collection of eloquent models filled with attributes from elasticsearch documents
 ```
 
-#debugging
+# debugging
 you can dump or die the query:
 
 ```php
@@ -226,10 +226,10 @@ Blog::elasticsearchQuery()->match('title', 'ttt')->dump()->exists('field')->dump
 Blog::elasticsearchQuery()->match('title', 'ttt')->dd();
 ```
 
-#using the low-level elasticsearch client
+# using the low-level elasticsearch client
 this package will bind the `Elasticsearch\Client` class to the service container as a singleton, so you can resolve it out of the container whenever you need to use it directly.
 
-#logging
+# logging
 when the environment is testing or local, this package will log executed queries in `storage/logs/elasticsearch.log` file.
 
 ## Testing
