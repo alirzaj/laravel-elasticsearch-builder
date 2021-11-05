@@ -86,8 +86,10 @@ publish the package's config file using **`php artisan vendor:publish --provider
 # making models searchable
 you can use **`Alirzaj\ElasticsearchBuilder\Searchable`** trait in Eloquent models. this trait will automatically add & update documents in elasticsearch on the corresponding index. you can override **`toIndex`** method on your models to control the attributes that will save on elasticsearch. default behaviour is array representation of the model (toArray).
 
-#indexing documents without eloquent models and using searchable trait
+# indexing documents without eloquent models and using searchable trait
+
 in some situations you may need to index or update a document without using searchable trait on Eloquent models. this package offers two jobs for indexing and updating.
+
 ```php
 IndexDocument::dispatch(
                 'name_of_index',
