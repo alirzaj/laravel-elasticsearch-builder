@@ -86,6 +86,23 @@ publish the package's config file using **`php artisan vendor:publish --provider
 # making models searchable
 you can use **`Alirzaj\ElasticsearchBuilder\Searchable`** trait in Eloquent models. this trait will automatically add & update documents in elasticsearch on the corresponding index. you can override **`toIndex`** method on your models to control the attributes that will save on elasticsearch. default behaviour is array representation of the model (toArray).
 
+#indexing documents without eloquent models and using searchable trait
+in some situations you may need to index or update a document without using searchable trait on Eloquent models. this package offers two jobs for indexing and updating.
+```php
+IndexDocument::dispatch(
+                'name_of_index',
+                'id',
+                ['name' => 'alirzaj'] //an array that you want indexed in elasticsearch
+            );
+
+UpdateDocument::dispatch(
+                'name_of_index',
+                'id',
+               ['name' => 'alirzaj'] //an array that you want to add in your existing elasticsearch document
+            );
+```
+
+
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
 
@@ -136,6 +153,8 @@ Blog::elasticsearchQuery()->exists('title');
 ```
 
 # bool
+you can pass closures to the boolean method and type hint the type of query you want:
+
 ```php
 Blog::elasticsearchQuery()
     ->boolean(
@@ -172,6 +191,40 @@ Blog::elasticsearchQuery()
           ),
     );
 ```
+
+#working with array fields
+this package provides two jobs for updating/removing an item from an array field:
+
+```php
+RemoveArrayItem::dispatch('index_name', 'array_field_name', 'value_to_remove');
+UpdateArrayItem::dispatch('index_name', 'array_field_name', 'old_value', 'new_value');
+```
+
+#getting results
+after writing a query, you can call `get()` to get the results as a collection.
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->get(); //a collection including _source of the resulting documents
+```
+you can also hydrate the results as eloquent models:
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate(); //an Eloquent collection of eloquent models filled with attributes from elasticsearch documents
+```
+
+#debugging
+you can dump or die the query:
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->dump()->exists('field')->dump();
+Blog::elasticsearchQuery()->match('title', 'ttt')->dd();
+```
+
+#using the low-level elasticsearch client
+this package will bind the `Elasticsearch\Client` class to the service container as a singleton, so you can resolve it out of the container whenever you need to use it directly.
+
+#logging
+when the environment is testing or local, this package will log executed queries in `storage/logs/elasticsearch.log` file.
 
 ## Testing
 
