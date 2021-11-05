@@ -215,10 +215,11 @@ Blog::elasticsearchQuery()->match('title', 'ttt')->get(); //a collection includi
 you can also hydrate the results as eloquent models:
 
 ```php
-Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate(); //an Eloquent collection of eloquent models filled with attributes from elasticsearch documents
+Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate(); //an Eloquent collection containing models filled with attributes from elasticsearch documents
 ```
 
 # debugging
+
 you can dump or die the query:
 
 ```php
