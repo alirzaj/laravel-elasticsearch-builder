@@ -5,7 +5,7 @@ return [
      * the hosts of elasticsearch.
      * this can be a string or an array of hosts
      */
-    'hosts' => 'localhost:9200',
+    'hosts' => 'elasticsearch:9200',
 
     /**
      * the name of the queue for all jobs related to elasticsearch

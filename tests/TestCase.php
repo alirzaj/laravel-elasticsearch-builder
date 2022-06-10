@@ -38,10 +38,10 @@ class TestCase extends Orchestra
 
         $app['config']->set('database.connections.mysql', [
             'driver' => 'mysql',
-            'database' => 'elastic-builder',
-            'host' => '127.0.0.1',
-            'username' => 'root',
-            'password' => '',
+            'database' => 'elkb',
+            'host' => 'mysql',
+            'username' => 'elkb',
+            'password' => '123',
         ]);
 
 

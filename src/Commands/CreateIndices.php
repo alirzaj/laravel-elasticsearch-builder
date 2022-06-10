@@ -51,7 +51,7 @@ class CreateIndices extends Command
 
                 try {
                     $this->createIndex($index);
-                } catch (BadRequest400Exception) {
+                } catch (BadRequest400Exception $e) {
                     $this->alert("{$index->getName()} already exists.");
                 }
 

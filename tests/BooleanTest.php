@@ -60,7 +60,7 @@ it('can build a should query', function () {
         ->boolean(
             fn (Should $should) => $should
                 ->match('a', 'b')
-                ->match('z', 'x', analyzer: 'rrr')
+                ->match('z', 'x', 'rrr')
                 ->multiMatch(['c', 'd'], 'e')
         )
         ->get();

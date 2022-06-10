@@ -16,8 +16,17 @@ class IndexDocument implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private string $name, private mixed $id, private array $document)
+    private string $name;
+    /** @var mixed */
+    private $id;
+    private array $document;
+
+    public function __construct(string $name, $id, array $document)
     {
+        $this->name = $name;
+        $this->id = $id;
+        $this->document = $document;
+
         $this->onQueue(config('elasticsearch.queue'));
     }
 

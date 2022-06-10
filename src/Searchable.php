@@ -40,7 +40,9 @@ trait Searchable
 
     protected function elasticsearchIndex(): Index
     {
-        return new (config('elasticsearch.indices')[$this::class]);
+        $index = config('elasticsearch.indices.'.get_class($this));
+
+        return new $index;
     }
 
     public static function elasticsearchQuery(): Query

@@ -41,12 +41,20 @@ class Query
         return $this->query;
     }
 
+    /**
+     * @param string $field
+     * @param string|int|float $value
+     * @param string|null $analyzer
+     * @param string $fuzziness
+     * @return Query
+     */
     public function match(
-        string           $field,
-        string|int|float $value,
-        string           $analyzer = null,
-        string           $fuzziness = 'AUTO'
-    ): Query {
+        string $field,
+               $value,
+        string $analyzer = null,
+        string $fuzziness = 'AUTO'
+    ): Query
+    {
         return $this->add('match', [
             $field => array_filter([
                 'analyzer' => $analyzer,
@@ -56,7 +64,13 @@ class Query
         ]);
     }
 
-    public function term(string $field, string|int|float $value, int|float $boost = 1.0): Query
+    /**
+     * @param string $field
+     * @param string|int|float $value
+     * @param int|float $boost
+     * @return Query
+     */
+    public function term(string $field, $value, $boost = 1.0): Query
     {
         return $this->add('term', [
             $field => [
@@ -71,13 +85,22 @@ class Query
         return $this->add('exists', ['field' => $field]);
     }
 
+    /**
+     * @param array $fields
+     * @param string|int|float $value
+     * @param string|null $analyzer
+     * @param string $fuzziness
+     * @param string $type
+     * @return Query
+     */
     public function multiMatch(
-        array            $fields,
-        string|int|float $value,
-        string           $analyzer = null,
-        string           $fuzziness = 'AUTO',
-        string           $type = 'best_fields'
-    ): Query {
+        array  $fields,
+               $value,
+        string $analyzer = null,
+        string $fuzziness = 'AUTO',
+        string $type = 'best_fields'
+    ): Query
+    {
         return $this->add(
             'multi_match',
             array_filter([
@@ -97,7 +120,7 @@ class Query
             'dis_max',
             [
                 'queries' => collect($queries)
-                    ->map(fn ($query) => app()->call($query)->toArray())
+                    ->map(fn($query) => app()->call($query)->toArray())
                     ->toArray(),
             ]
         );
@@ -116,14 +139,18 @@ class Query
         );
     }
 
-    public function matchAll(int|float $boost = 1.0): self
+    /**
+     * @param int|float $boost
+     * @return $this
+     */
+    public function matchAll($boost = 1.0): self
     {
         return $this->add('match_all', ['match_all' => ['boost' => $boost]]);
     }
 
     private function add(string $name, array $query): self
     {
-        in_array($this::class, $this->compounds) ?
+        in_array(get_class($this), $this->compounds) ?
             $this->query[][$name] = $query :
             $this->query[$name] = $query;
 
@@ -138,15 +165,21 @@ class Query
     public function hydrate(): EloquentCollection
     {
         $indices = collect(config('elasticsearch.indices'))
-            ->map(fn ($index) => (new $index())->getName())
+            ->map(fn($index) => (new $index())->getName())
             ->flip();
 
         return EloquentCollection::make($this->executeQuery()['hits']['hits'])->map(
-            fn (array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
+            fn(array $hit) => $this->toModel($indices[$hit['_index']], $hit['_id'], $hit['_source'])
         );
     }
 
-    private function toModel(string $model, mixed $id, array $source): Model
+    /**
+     * @param string $model
+     * @param mixed $id
+     * @param array $source
+     * @return Model
+     */
+    private function toModel(string $model, $id, array $source): Model
     {
         /** @var Model $model */
         $model = new $model();

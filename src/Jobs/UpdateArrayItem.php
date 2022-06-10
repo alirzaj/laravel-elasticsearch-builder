@@ -16,12 +16,20 @@ class UpdateArrayItem implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(
-        private string $name,
-        private string $field,
-        private mixed  $search,
-        private mixed  $replace
-    ) {
+    private string $name;
+    private string $field;
+    /** @var mixed */
+    private $search;
+    /** @var mixed */
+    private $replace;
+
+    public function __construct(string $name, string $field, $search, $replace)
+    {
+        $this->name = $name;
+        $this->field = $field;
+        $this->search = $search;
+        $this->replace = $replace;
+
         $this->onQueue(config('elasticsearch.queue'));
     }
 
