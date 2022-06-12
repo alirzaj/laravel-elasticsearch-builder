@@ -50,7 +50,7 @@ class ElasticsearchBuilderServiceProvider extends ServiceProvider
     private function bindClient()
     {
         $this->app->singleton(Client::class, function () {
-            $client = ClientBuilder::create()->setHosts(
+            $client = ClientBuilder::create()->setSSLVerification(config('elasticsearch.ssl_verification'))->setHosts(
                 Arr::wrap(config('elasticsearch.hosts'))
             );
 

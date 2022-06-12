@@ -7,6 +7,8 @@ return [
      */
     'hosts' => 'elasticsearch:9200',
 
+    'ssl_verification' => true,
+
     /**
      * the name of the queue for all jobs related to elasticsearch
      */
