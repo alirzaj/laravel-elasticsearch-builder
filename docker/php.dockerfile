@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:8.1-fpm-alpine
 
 ENV PHPGROUP=alireza
 ENV PHPUSER=alireza
@@ -16,12 +16,6 @@ RUN sed -i "s/memory_limit = 128M/memory_limit = -1/g" /usr/local/etc/php/php.in
 RUN mkdir -p /var/www/html
 
 RUN docker-php-ext-install pdo pdo_mysql exif bcmath sockets
-
-RUN apk add --no-cache libpng libpng-dev && docker-php-ext-install gd
-
-RUN apk add --no-cache zip libzip-dev
-RUN docker-php-ext-configure zip
-RUN docker-php-ext-install zip
 
 #Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
