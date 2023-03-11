@@ -30,4 +30,6 @@ it('can build a term query', function () {
         ]);
 
     Blog::elasticsearchQuery()->term('field', 'aaa', 1.5)->get();
+
+    expect(true)->toBeTrue();
 });

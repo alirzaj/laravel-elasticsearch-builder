@@ -27,4 +27,6 @@ it('can build exists query', function () {
         ]);
 
     Blog::elasticsearchQuery()->exists('title')->get();
+
+    expect(true)->toBeTrue();
 });

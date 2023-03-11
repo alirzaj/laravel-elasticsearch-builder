@@ -31,4 +31,6 @@ it('can add multiple indexes to the query', function () {
         ]);
 
     Blog::elasticsearchQuery()->addIndex(Users::class)->match('field', 'test')->get();
+
+    expect(true)->toBeTrue();
 });

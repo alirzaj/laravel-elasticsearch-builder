@@ -31,4 +31,6 @@ it('can build match query', function () {
         ]);
 
     Blog::elasticsearchQuery()->match('field', 'test', 'aaa', 'AUTO')->get();
+
+    expect(true)->toBeTrue();
 });

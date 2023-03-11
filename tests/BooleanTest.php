@@ -64,6 +64,8 @@ it('can build a should query', function () {
                 ->multiMatch(['c', 'd'], 'e')
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });
 
 it('can build a filter query', function () {
@@ -113,6 +115,8 @@ it('can build a filter query', function () {
                 ->term('z', 'x')
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });
 
 it('can build a must not query', function () {
@@ -166,6 +170,8 @@ it('can build a must not query', function () {
                 ->exists('description')
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });
 
 it('can build a must query', function () {
@@ -219,4 +225,6 @@ it('can build a must query', function () {
                 ->exists('description')
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });

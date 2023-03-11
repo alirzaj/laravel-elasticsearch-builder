@@ -43,6 +43,8 @@ it('can make a nested query and set ignore_unmapped and score mode to default va
         fn (Query $query) => $query->match('field', 'test', 'aaa'),
         'driver.vehicle'
     );
+
+    expect(true)->toBeTrue();
 });
 
 it('can build a nested query and set options to desired values', function () {
@@ -105,4 +107,6 @@ it('can build a nested query and set options to desired values', function () {
         'sum',
         true
     );
+
+    expect(true)->toBeTrue();
 });

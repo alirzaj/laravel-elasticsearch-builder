@@ -25,6 +25,8 @@ it('can build a match_all query with default parameters', function () {
         ]);
 
     blog::elasticsearchQuery()->matchAll();
+
+    expect(true)->toBeTrue();
 });
 
 it('can build a match_all query and set boost option', function () {
@@ -49,4 +51,6 @@ it('can build a match_all query and set boost option', function () {
         ]);
 
     blog::elasticsearchQuery()->matchAll(1.7);
+
+    expect(true)->toBeTrue();
 });

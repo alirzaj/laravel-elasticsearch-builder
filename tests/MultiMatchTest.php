@@ -30,6 +30,8 @@ it('can build multi match query', function () {
         ]);
 
     Blog::elasticsearchQuery()->multiMatch(['field1', 'field2'], 'test')->get();
+
+    expect(true)->toBeTrue();
 });
 
 it('can set type of matching and analyzer and fuzziness', function () {
@@ -62,4 +64,6 @@ it('can set type of matching and analyzer and fuzziness', function () {
     Blog::elasticsearchQuery()
         ->multiMatch(['field1', 'field2'], 'test', 'aaa', 'fff', 'ttt')
         ->get();
+
+    expect(true)->toBeTrue();
 });

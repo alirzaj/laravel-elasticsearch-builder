@@ -75,4 +75,6 @@ it('can build disjunction max query', function () {
             ),
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });
