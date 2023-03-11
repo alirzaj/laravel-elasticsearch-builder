@@ -6,6 +6,7 @@ use Alirzaj\ElasticsearchBuilder\Index;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class CreateIndices extends Command
 {
@@ -23,34 +24,15 @@ class CreateIndices extends Command
      */
     protected $description = 'create all defined indexes in elasticsearch';
 
-    private Client $client;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(Client $client)
-    {
-        parent::__construct();
-
-        $this->client = $client;
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(Client $client): int
     {
         collect(config('elasticsearch.indices'))
-            ->map(fn (string $index) => new $index())
-            ->each(function (Index $index) {
+            ->map(fn(string $index) => new $index())
+            ->each(function (Index $index) use ($client) {
                 $this->info("creating {$index->getName()}");
 
                 try {
-                    $this->createIndex($index);
+                    $client->indices()->create($this->createIndexQuery($index));
                 } catch (BadRequest400Exception $e) {
                     $this->alert("{$index->getName()} already exists.");
                 }
@@ -58,29 +40,52 @@ class CreateIndices extends Command
                 $this->info("created {$index->getName()}");
             });
 
-        return 0;
+        return Command::SUCCESS;
     }
 
-    private function createIndex(Index $index): void
+    private function createIndexQuery(Index $index): array
     {
-        $this->client->indices()->create([
+        return [
             'index' => $index->getName(),
             'body' => [
                 'settings' => [
                     'analysis' => [
                         'analyzer' => $index->analyzers ?? [],
                         'tokenizer' => $index->tokenizers ?? [],
+                        'normalizer' => $index->normalizers ?? [],
+                        'filter' => $index->tokenFilters ?? [],
+                        'char_filter' => $index->characterFilters ?? []
                     ],
                 ],
                 'mappings' => [
-                    'properties' => collect($index->properties)
-                        ->map(fn (string $type, string $name) => [
-                            'type' => $type,
-                            'fields' => $index->fields[$name] ?? [],
-                        ])
+                    'properties' => collect($index->propertyTypes)
+                        ->map(fn(string $type, string $name) => [
+                                'type' => $type,
+                                'fields' => $index->fields[$name] ?? [],
+                            ] + $this->addOptionalParameters($index, $name)
+                        )
                         ->toArray(),
                 ],
             ],
-        ]);
+        ];
+    }
+
+    private function addOptionalParameters(Index $index, string $fieldName): array
+    {
+        $optionalParameters = [];
+
+        if (Arr::has($index->propertyNormalizers, $fieldName)) {
+            $optionalParameters['normalizer'] = $index->propertyNormalizers[$fieldName];
+        }
+
+        if (Arr::has($index->searchAnalyzers, $fieldName)) {
+            $optionalParameters['search_analyzer'] = $index->searchAnalyzers[$fieldName];
+        }
+
+        if (Arr::has($index->propertyAnalyzers, $fieldName)) {
+            $optionalParameters['analyzer'] = $index->propertyAnalyzers[$fieldName];
+        }
+
+        return $optionalParameters;
     }
 }

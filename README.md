@@ -31,7 +31,7 @@ class Users extends Index
 {
     public string $name = 'users_index';
 
-    public array $properties = [
+    public array $propertyTypes = [
         'text' => 'text',
         'user_id' => 'keyword',
         'ip' => 'ip',
@@ -53,6 +53,11 @@ class Users extends Index
             'tokenizer' => 'hashtag_tokenizer',
             'filter' => ['lowercase'],
         ],
+        'hashtag_2' => [
+            'type' => 'custom',
+            'tokenizer' => 'hashtag_tokenizer',
+            'filter' => ['lowercase'],
+        ],
     ];
 
     public array $tokenizers = [
@@ -62,12 +67,48 @@ class Users extends Index
             'group' => 0,
         ],
     ];
+
+    public array $propertyAnalyzers = [
+        'text' => 'hashtag',
+    ];
+
+    public array $searchAnalyzers = [
+        'text' => 'hashtag_2',
+    ];
+
+    public array $normalizers = [
+        'my_normalizer' => [
+            'type' => 'custom',
+            'char_filter' => ['special_character_strip'],
+            'filter' => ['lowercase',]
+        ],
+    ];
+
+    public array $propertyNormalizers = [
+        'ip' => 'my_normalizer'
+    ];
+
+    public array $characterFilters = [
+        'special_character_strip' => [
+            'type' => 'pattern_replace',
+            'pattern' => '[._]',
+        ],
+    ];
+
+    public array $tokenFilters = [
+        '4_7_edge_ngram' => [
+            'min_gram' => '4',
+            'max_gram' => '7',
+            'type' => 'edge_ngram',
+            'preserve_original' => 'true',
+        ],
+    ];
 }
 ```
 
 if you don't define `$name` index name will equal to class name.
 
-`$properties` array is a map of property names and their data type. key is name of field and value is data type.
+`$propertyTypes` array is a map of property names and their data type. key is name of field and value is data type.
 
 `$fields` is other definitions of a field. for example, you want to save another version of text field to match hashtags (with another analyzer).
 
@@ -76,6 +117,8 @@ if you don't define `$name` index name will equal to class name.
 `$tokenizers` contains config for tokenizers.
 
  the only property that you **must** define is `$properties`.
+
+ If you don't know what other properties do, please refer to doc comment of each property to read more about it.
 
 # create indices
 to create the indices defined in previous step, run **`php artisan elastic:create-indices`**

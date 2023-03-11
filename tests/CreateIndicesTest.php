@@ -28,6 +28,11 @@ it('can create indices', function () {
                                     'tokenizer' => 'hashtag_tokenizer',
                                     'filter' => ['lowercase'],
                                 ],
+                                'hashtag_2' => [
+                                    'type' => 'custom',
+                                    'tokenizer' => 'hashtag_tokenizer',
+                                    'filter' => ['lowercase'],
+                                ],
                             ],
                             'tokenizer' => [
                                 'hashtag_tokenizer' => [
@@ -36,12 +41,35 @@ it('can create indices', function () {
                                     'group' => 0,
                                 ],
                             ],
+                            'normalizer' => [
+                                'my_normalizer' => [
+                                    'type' => 'custom',
+                                    'char_filter' => ['special_character_strip'],
+                                    'filter' => ['lowercase',]
+                                ],
+                            ],
+                            'filter' => [
+                                '4_7_edge_ngram' => [
+                                    'min_gram' => '4',
+                                    'max_gram' => '7',
+                                    'type' => 'edge_ngram',
+                                    'preserve_original' => 'true',
+                                ],
+                            ],
+                            'char_filter' => [
+                                'special_character_strip' => [
+                                    'type' => 'pattern_replace',
+                                    'pattern' => '[._]',
+                                ],
+                            ]
                         ],
                     ],
                     'mappings' => [
                         'properties' => [
                             'text' => [
                                 'type' => 'text',
+                                'analyzer' => 'hashtag',
+                                'search_analyzer' => 'hashtag_2',
                                 'fields' => [
                                     'hashtags' => [
                                         'type' => 'text',
@@ -56,6 +84,7 @@ it('can create indices', function () {
                             'ip' => [
                                 'type' => 'ip',
                                 'fields' => [],
+                                'normalizer' => 'my_normalizer',
                             ],
                             'created_at' => [
                                 'type' => 'date',
@@ -77,6 +106,9 @@ it('can create indices', function () {
                     'analysis' => [
                         'analyzer' => [],
                         'tokenizer' => [],
+                        'normalizer' => [],
+                        'filter' => [],
+                        'char_filter' => []
                     ],
                 ],
                 'mappings' => [

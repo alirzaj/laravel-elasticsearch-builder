@@ -6,7 +6,7 @@ use Alirzaj\ElasticsearchBuilder\Index;
 
 class Blogs extends Index
 {
-    public array $properties = [
+    public array $propertyTypes = [
         'text' => 'text',
         'title' => 'keyword',
         'description' => 'completion',
