@@ -123,6 +123,10 @@ if you don't define `$name` index name will equal to class name.
 # create indices
 to create the indices defined in previous step, run **`php artisan elastic:create-indices`**
 
+# delete indices
+to delete all indices defined via this package, run **`php artisan elastic:delete-indices`**
+
+
 # configuration
 publish the package's config file using **`php artisan vendor:publish --provider="Alirzaj\\ElasticsearchBuilder\\ElasticsearchBuilderServiceProvider"`** command. all options have description in file.
 
@@ -276,10 +280,72 @@ this package will bind the `Elasticsearch\Client` class to the service container
 # logging
 when the environment is testing or local, this package will log executed queries in `storage/logs/elasticsearch.log` file.
 
-## Testing
+## Testing Helpers
 
-```bash
-composer test
+#### refreshing indices state
+
+this package provides a `RefreshElasticsearchDatabase` trait that you can use to clean up the elasticsearch indices after each test.
+
+first, you have to use this trait in your test case.
+
+```php
+abstract class TestCase extends BaseTestCase
+{
+    use RefreshElasticsearchDatabase;
+}
+```
+
+then you should call two methods. one in your `setUp()` method and one in `tearDown()`
+
+```php
+public function setUp(): void
+{
+    parent::setUp();
+
+    $this->createIndices();
+}
+```
+
+
+```php
+public function tearDown(): void
+{
+    $this->clearElasticsearchData();
+
+    parent::tearDown();
+}
+```
+
+#### assertions
+
+this package provides an `InteractsWithElasticsearch` trait that you can use in your test cases in order to make assertion on data in elasticsearch indices.
+
+
+```php
+abstract class TestCase extends BaseTestCase
+{
+    use InteractsWithElasticsearch;
+}
+```
+
+you can assert if a certain document exists in an elasticsearch index:
+
+```php
+ $this->assertElasticsearchHas(
+    'blogs',
+    15,
+    ['title' => 'my title']
+ );
+```
+
+or make sure that a document is not indexed in elasticsearch:
+
+```php
+ $this->assertElasticsearchMissing(
+    'blogs',
+    15,
+    ['title' => 'my title']
+ );
 ```
 
 ## Changelog
