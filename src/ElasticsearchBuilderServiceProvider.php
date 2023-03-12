@@ -3,6 +3,7 @@
 namespace Alirzaj\ElasticsearchBuilder;
 
 use Alirzaj\ElasticsearchBuilder\Commands\CreateIndices;
+use Alirzaj\ElasticsearchBuilder\Commands\DeleteIndices;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Arr;
@@ -34,6 +35,7 @@ class ElasticsearchBuilderServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateIndices::class,
+                DeleteIndices::class
             ]);
         }
 
