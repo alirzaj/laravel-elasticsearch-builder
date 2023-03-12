@@ -4,6 +4,15 @@ return [
     /**
      * the hosts of elasticsearch.
      * this can be a string or an array of hosts
+     *
+     * e.g:  [
+        'host' => env('ELASTIC_HOST', ''),
+        'port' => env('ELASTIC_PORT', ''),
+        'scheme' => env('ELASTIC_SCHEME', 'https'),
+        'user' => env('ELASTIC_USER', ''),
+        'pass' => env('ELASTIC_PASS', ''),
+     ],
+     * e.g: 'elasticsearch:9200'
      */
     'hosts' => 'elasticsearch:9200',
 
