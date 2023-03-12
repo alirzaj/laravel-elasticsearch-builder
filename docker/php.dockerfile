@@ -3,8 +3,6 @@ FROM php:8.1-fpm-alpine
 ENV PHPGROUP=alireza
 ENV PHPUSER=alireza
 
-RUN apk update && apk add mysql-client
-
 RUN adduser -g ${PHPGROUP} -s /bin/sh -D ${PHPUSER}
 
 RUN sed -i "s/user = www-data/user = ${PHPUSER}/g" /usr/local/etc/php-fpm.d/www.conf
