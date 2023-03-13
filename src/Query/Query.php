@@ -64,13 +64,7 @@ class Query
         ]);
     }
 
-    /**
-     * @param string $field
-     * @param string|int|float $value
-     * @param int|float $boost
-     * @return Query
-     */
-    public function term(string $field, $value, $boost = 1.0): Query
+    public function term(string $field, float|int|string $value, float|int $boost = 1.0): Query
     {
         return $this->add('term', [
             $field => [
@@ -85,20 +79,12 @@ class Query
         return $this->add('exists', ['field' => $field]);
     }
 
-    /**
-     * @param array $fields
-     * @param string|int|float $value
-     * @param string|null $analyzer
-     * @param string $fuzziness
-     * @param string $type
-     * @return Query
-     */
     public function multiMatch(
-        array  $fields,
-               $value,
-        string $analyzer = null,
-        string $fuzziness = 'AUTO',
-        string $type = 'best_fields'
+        array            $fields,
+        float|int|string $value,
+        string           $analyzer = null,
+        string           $fuzziness = 'AUTO',
+        string           $type = 'best_fields'
     ): Query
     {
         return $this->add(
@@ -160,6 +146,13 @@ class Query
     public function get(): Collection
     {
         return collect($this->executeQuery()['hits']['hits'])->pluck('_source');
+    }
+
+    public function count() : int
+    {
+        $this->params['body']['query'] = $this->query;
+
+        return resolve(Client::class)->count($this->params)['count'];
     }
 
     public function hydrate(): EloquentCollection
