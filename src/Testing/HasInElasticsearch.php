@@ -25,19 +25,15 @@ class HasInElasticsearch extends Constraint
     /**
      * Check if the document found in the given index.
      *
-     * @param  string  $index
+     * @param string $index
      */
     public function matches($index): bool
     {
-        $document = $this->client->search([
+        $document = $this->client->get([
             'index' => $index,
+            'id' => $this->id,
             '_source' => $this->data->keys()->toArray(),
-            'body' => [
-                'query' => [
-                    'term' => ['id' => $this->id],
-                ],
-            ],
-        ])['hits']['hits'][0]['_source'] ?? [];
+        ])['_source'] ?? [];
 
         if (empty($document)) {
             return false;
@@ -51,7 +47,7 @@ class HasInElasticsearch extends Constraint
                         return $value === $this->data[$key];
                     }
 
-                    return  $value == $this->data[$key];
+                    return $value == $this->data[$key];
                 })
                 ->isEmpty()
             &&
@@ -68,7 +64,7 @@ class HasInElasticsearch extends Constraint
     /**
      * Get the description of the failure.
      *
-     * @param  string  $index
+     * @param string $index
      */
     public function failureDescription($index): string
     {
@@ -87,7 +83,7 @@ class HasInElasticsearch extends Constraint
         return $this
             ->data
             ->map(function ($item) {
-                return $item instanceof Expression ? (string) $item : $item;
+                return $item instanceof Expression ? (string)$item : $item;
             })
             ->toJson(JSON_PRETTY_PRINT);
     }
