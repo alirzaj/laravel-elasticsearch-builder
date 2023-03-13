@@ -15,11 +15,11 @@ class DeleteIndices extends Command
     public function handle(Client $client): int
     {
         $client->indices()->delete([
-            'index' => dump(collect(config('elasticsearch.indices'))
+            'index' => collect(config('elasticsearch.indices'))
                 ->map(fn(string $index) => new $index())
                 ->map(fn(Index $index) => $index->getName())
                 ->values()
-                ->toArray()),
+                ->toArray(),
             'ignore_unavailable' => true,
         ]);
 
