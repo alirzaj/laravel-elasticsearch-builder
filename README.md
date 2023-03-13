@@ -46,6 +46,10 @@ class Users extends Index
             ],
         ],
     ];
+    
+    public array $dateFormats = [
+        'created_at' => 'strict_date_optional_time||strict_date_optional_time_nanos||yyyy-MM-dd HH:mm:ss',
+    ];
 
     public array $analyzers = [
         'hashtag' => [

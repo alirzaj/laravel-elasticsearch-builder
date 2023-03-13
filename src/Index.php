@@ -6,8 +6,6 @@ class Index
 {
     /**
      * name of the index
-     *
-     * @var string
      */
     public string $name;
 
@@ -16,7 +14,6 @@ class Index
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/explicit-mapping.html
      * 'title' => 'text' means that title field in the index will have text type
      *
-     * @var array|string[]
      */
     public array $propertyTypes = [];
 
@@ -25,7 +22,6 @@ class Index
      *
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analyzer.html
      *
-     * @var array
      */
     public array $propertyAnalyzers = [];
 
@@ -34,7 +30,6 @@ class Index
      *
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/search-analyzer.html
      *
-     * @var array
      */
     public array $searchAnalyzers = [];
 
@@ -43,9 +38,16 @@ class Index
      * other definitions of a field
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html
      *
-     * @var array
      */
     public array $fields = [];
+
+    /**
+     * determine format of date fields
+     *
+     * https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html
+     *
+     */
+    public array $dateFormats = [];
 
     /**
      * define custom normalizers for index
@@ -58,14 +60,13 @@ class Index
      *           'filter' => ['lowercase', 'asciifolding', 'persian_normalization']
      *      ]
      *
-     * @var array
      */
     public array $normalizers = [];
 
     /**
      * define and config analyzers for index
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-custom-analyzer.html
-     * @var array|\string[][]
+     *
      */
     public array $analyzers = [];
 
@@ -73,7 +74,7 @@ class Index
      * define & config tokenizers for index
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-custom-analyzer.html
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html
-     * @var array
+     *
      */
     public array $tokenizers = [];
 
@@ -84,7 +85,6 @@ class Index
      *
      * e.g: title => 'lowercase'
      *
-     * @var array
      */
     public array $propertyNormalizers = [];
 
@@ -93,7 +93,6 @@ class Index
      *
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-pattern-replace-charfilter.html
      *
-     * @var array
      */
     public array $characterFilters = [];
 
@@ -102,7 +101,6 @@ class Index
      *
      * https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html
      *
-     * @var array
      */
     public array $tokenFilters = [];
 

@@ -86,6 +86,10 @@ class CreateIndices extends Command
             $optionalParameters['analyzer'] = $index->propertyAnalyzers[$fieldName];
         }
 
+        if (Arr::has($index->dateFormats, $fieldName)) {
+            $optionalParameters['format'] = $index->dateFormats[$fieldName];
+        }
+
         return $optionalParameters;
     }
 }

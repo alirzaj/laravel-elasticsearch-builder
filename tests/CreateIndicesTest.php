@@ -88,6 +88,7 @@ it('can create indices', function () {
                             ],
                             'created_at' => [
                                 'type' => 'date',
+                                'format' => 'strict_date_optional_time||strict_date_optional_time_nanos||yyyy-MM-dd HH:mm:ss',
                                 'fields' => [],
                             ],
                         ],
