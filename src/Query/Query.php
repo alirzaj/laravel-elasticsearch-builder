@@ -41,18 +41,11 @@ class Query
         return $this->query;
     }
 
-    /**
-     * @param string $field
-     * @param string|int|float $value
-     * @param string|null $analyzer
-     * @param string $fuzziness
-     * @return Query
-     */
     public function match(
-        string $field,
-               $value,
-        string $analyzer = null,
-        string $fuzziness = 'AUTO'
+        string           $field,
+        float|int|string $value,
+        string           $analyzer = null,
+        string           $fuzziness = 'AUTO'
     ): Query
     {
         return $this->add('match', [
@@ -125,11 +118,7 @@ class Query
         );
     }
 
-    /**
-     * @param int|float $boost
-     * @return $this
-     */
-    public function matchAll($boost = 1.0): self
+    public function matchAll(float|int $boost = 1.0): self
     {
         return $this->add('match_all', ['match_all' => ['boost' => $boost]]);
     }
@@ -166,13 +155,7 @@ class Query
         );
     }
 
-    /**
-     * @param string $model
-     * @param mixed $id
-     * @param array $source
-     * @return Model
-     */
-    private function toModel(string $model, $id, array $source): Model
+    private function toModel(string $model, mixed $id, array $source): Model
     {
         /** @var Model $model */
         $model = new $model();
