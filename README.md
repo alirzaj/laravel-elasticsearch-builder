@@ -176,6 +176,13 @@ you can add an index to the indices that are being queried:
 Blog::elasticsearchQuery()->addIndex(Users::class);
 ```
 
+# find a document by its id
+
+
+```php
+Blog::elasticsearchQuery()->find(150);
+```
+
 # match 
 you can use named arguments to only pass the options you need.
 

@@ -137,6 +137,12 @@ class Query
         return collect($this->executeQuery()['hits']['hits'])->pluck('_source');
     }
 
+    public function find(mixed $id) : array
+    {
+        return resolve(Client::class)
+            ->get(['index' => $this->params['index'], 'id' => $id])['_source'] ?? [];
+    }
+
     public function count() : int
     {
         $this->params['body']['query'] = $this->query;
