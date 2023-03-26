@@ -209,6 +209,13 @@ class Query
         return resolve(Client::class)->search($this->params);
     }
 
+    public function toRaw(): array
+    {
+        $this->params['body']['query'] = $this->query;
+
+        return $this->params;
+    }
+
     public function dd(): void
     {
         dd($this->query);
