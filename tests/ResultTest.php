@@ -12,6 +12,7 @@ it('can get results of a query as collection', function () {
             'hits' => [
                 'hits' => [
                     [
+                        '_id' => 1,
                         '_source' => $blog1 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
@@ -19,6 +20,7 @@ it('can get results of a query as collection', function () {
                         ],
                     ],
                     [
+                        '_id' => 2,
                         '_source' => $blog2 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
@@ -26,6 +28,7 @@ it('can get results of a query as collection', function () {
                         ],
                     ],
                     [
+                        '_id' => 3,
                         '_source' => $blog3 = [
                             'title' => Str::random(),
                             'description' => Str::random(),
