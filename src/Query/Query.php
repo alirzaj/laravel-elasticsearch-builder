@@ -93,6 +93,11 @@ class Query
         ]);
     }
 
+    public function terms(string $field, array $values): Query
+    {
+        return $this->add('terms', [$field => $values]);
+    }
+
     public function exists(string $field): Query
     {
         return $this->add('exists', ['field' => $field]);
