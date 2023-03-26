@@ -38,9 +38,12 @@ class Query
     //TODO add options (minimum should match)
     public function boolean(Closure ...$queries): Query
     {
+        $booleanQuery = [];
         foreach ($queries as $query) {
-            $this->add('bool', app()->call($query)->toArray());
+            $booleanQuery += app()->call($query)->toArray();
         }
+
+        $this->add('bool', $booleanQuery);
 
         return $this;
     }
