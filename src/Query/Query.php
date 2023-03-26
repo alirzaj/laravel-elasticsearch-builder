@@ -7,9 +7,12 @@ use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Conditionable;
 
 class Query
 {
+    use Conditionable;
+
     private array $params = ['body' => []];
     private array $compounds = [
         Should::class,
