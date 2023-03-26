@@ -228,3 +228,70 @@ it('can build a must query', function () {
 
     expect(true)->toBeTrue();
 });
+
+it('can build a boolean query containing multiple compound queries', function () {
+    \Pest\Laravel\mock(Client::class)
+        ->shouldReceive('search')
+        ->with([
+            'index' => ['blogs'],
+            'body' => [
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match' => [
+                                    'a' => [
+                                        'query' => 'b',
+                                        'fuzziness' => 'AUTO',
+                                    ],
+                                ],
+                            ],
+                            [
+                                'term' => [
+                                    'z' => [
+                                        'value' => 'x',
+                                        'boost' => 1.0,
+                                    ],
+                                ],
+                            ],
+                            [
+                                'exists' => ['field' => 'description'],
+                            ],
+                        ],
+                        'should' => [
+                            [
+                                'match' => [
+                                    'x' => [
+                                        'query' => 'y',
+                                        'fuzziness' => 'AUTO',
+                                    ],
+                                ],
+                            ],
+                        ]
+                    ],
+                ],
+            ],
+        ])
+        ->andReturn([
+            'hits' => [
+                'hits' => [
+                    ['_source' => []],
+                    ['_source' => []],
+                    ['_source' => []],
+                ],
+            ],
+        ]);
+
+    Blog::elasticsearchQuery()
+        ->boolean(
+            fn(Must $must) => $must
+                ->match('a', 'b')
+                ->term('z', 'x')
+                ->exists('description'),
+            fn(Should $should) => $should
+                ->match('x', 'y')
+        )
+        ->get();
+
+    expect(true)->toBeTrue();
+});
