@@ -155,6 +155,32 @@ UpdateDocument::dispatch(
             );
 ```
 
+# update documents having a condition
+
+```php
+UpdateDocumentsByCondition::dispatchSync(
+        'blogs',
+        [
+            'condition-field' => 'condition-value',
+            'condition-field-2' => null,
+        ],
+        ['my-field' => 'new-value'],
+    );
+```
+
+if you want to update a **large field** of documents having some condition, be sure to use 4th argument of `UpdateDocumentsByCondition` job.
+
+```php
+UpdateDocumentsByCondition::dispatchSync(
+        'blogs',
+        [
+            'condition-field' => 'condition-value',
+            'condition-field-2' => null,
+        ],
+        ['text' => 'large-value'],
+        ['text']
+    );
+```
 
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
@@ -173,7 +199,7 @@ new \Alirzaj\ElasticsearchBuilder\Query();
 you can add an index to the indices that are being queried:
 
 ```php
-Blog::elasticsearchQuery()->addIndex(Users::class);
+Blog::elasticsearchQuery()->addIndex(Users::class)->addIndex('blogs');
 ```
 
 # find a document by its id
@@ -242,6 +268,11 @@ Blog::elasticsearchQuery()
 Blog::elasticsearchQuery()->term('field', 'value', 1.5);
 ```
 
+# terms
+```php
+Blog::elasticsearchQuery()->terms('field', ['value-1', 'value-2']);
+```
+
 # dis_max
 ```php
 Blog::elasticsearchQuery()
@@ -274,6 +305,35 @@ you can also hydrate the results as eloquent models:
 
 ```php
 Blog::elasticsearchQuery()->match('title', 'ttt')->hydrate(); //an Eloquent collection containing models filled with attributes from elasticsearch documents
+```
+
+note that the result collection's keys are _id of your documents.
+
+# determine a size limit for results
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->size(15)->get();
+```
+
+# select specific fields
+
+`only()` method will add "_source" to your query.
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->only(['title'])->get();
+```
+
+# build queries based on conditions
+
+the query builder uses Laravel's Conditionable trait under the hood which means you can do sth like this:
+
+```php
+use Alirzaj\ElasticsearchBuilder\Query\Query;
+
+Blog::elasticsearchQuery()
+    ->match('title', 'ttt')
+    ->when(isset($select), fn(Query $query) => $query->only(['title']))
+    ->get(); 
 ```
 
 # debugging
