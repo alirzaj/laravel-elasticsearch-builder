@@ -24,7 +24,13 @@ class Query
 
     public function addIndex(string $index): Query
     {
-        $this->params['index'][] = (new $index())->getName();
+        if (class_exists($index)) {
+            $this->params['index'][] = (new $index())->getName();
+
+            return $this;
+        }
+
+        $this->params['index'][] = $index;
 
         return $this;
     }
