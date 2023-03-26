@@ -16,26 +16,12 @@ class RemoveArrayItem implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private string $name;
-    private string $field;
-    /** @var mixed */
-    private $search;
-
-    public function __construct(string $name, string $field, $search)
+    public function __construct(private string $name,private string $field, private mixed $search)
     {
-        $this->name = $name;
-        $this->field = $field;
-        $this->search = $search;
-
         $this->onQueue(config('elasticsearch.queue'));
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle(Client $client)
+    public function handle(Client $client): void
     {
         $client->updateByQuery([
             'refresh' => true,
