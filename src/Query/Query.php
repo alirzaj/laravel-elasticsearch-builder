@@ -35,6 +35,13 @@ class Query
         return $this;
     }
 
+    public function only(string|array $fields): Query
+    {
+        $this->params['body']['_source'] = $fields;
+
+        return $this;
+    }
+
     public function size(int $size): Query
     {
         $this->params['body']['size'] = $size;
