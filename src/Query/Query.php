@@ -156,9 +156,9 @@ class Query
 
     private function add(string $name, array $query): self
     {
-        in_array(get_class($this), $this->compounds) ?
-            $this->query[][$name] = $query :
-            $this->query[$name] = $query;
+        in_array(get_class($this), $this->compounds)
+            ? $this->query[][$name] = $query
+            : $this->query[$name] = $query;
 
         return $this;
     }
