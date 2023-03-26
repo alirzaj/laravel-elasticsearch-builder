@@ -165,7 +165,7 @@ class Query
 
     public function get(): Collection
     {
-        return collect($this->executeQuery()['hits']['hits'])->pluck('_source');
+        return collect($this->executeQuery()['hits']['hits'])->pluck('_source', '_id');
     }
 
     public function find(mixed $id) : array
