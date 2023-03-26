@@ -35,6 +35,13 @@ class Query
         return $this;
     }
 
+    public function size(int $size): Query
+    {
+        $this->params['body']['size'] = $size;
+
+        return $this;
+    }
+
     //TODO add options (minimum should match)
     public function boolean(Closure ...$queries): Query
     {
