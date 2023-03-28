@@ -182,6 +182,35 @@ UpdateDocumentsByCondition::dispatchSync(
     );
 ```
 
+# add an item to a nested field
+
+```php
+AddItemToNestedField::dispatchSync(
+        'blogs',
+        10,
+        'tags',
+        ['id' => 20, 'name' => 'php'],
+    );
+```
+
+# update a document's nested field items having a condition
+
+```php
+UpdateNestedItemByCondition::dispatchSync(
+        'blogs',
+        10,
+        'tags',
+        ['id' => 20], // in document, we have a [nested] tags field. now we are looking for the ones with id of 20
+        /**
+         * we want all of those items having above condition to be updated to this item
+         * note that if you have id key in conditions, and id key in document parameter, the values must be the same
+         * in other words condition's value must not change in update.
+         * in this example we find the tag via id and update its name. we couldn't find it via old name and set a new name
+         */
+        ['id' => 20, 'name' => 'new-php']
+    );
+```
+
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
 
