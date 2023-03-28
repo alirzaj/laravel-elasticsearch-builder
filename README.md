@@ -223,6 +223,24 @@ UpdateNestedItemByCondition::dispatchSync(
     );
 ```
 
+# delete a document
+
+```php
+ DeleteDocument::dispatchSync('blogs',10);
+```
+
+# delete all documents that meet some conditions
+
+```php
+DeleteDocumentsByCondition::dispatchSync(
+        'blogs',
+        [
+            'condition-field' => 'condition-value',
+            'condition-field-2' => null,
+        ],
+    );
+```
+
 # querying indices
 if you have searchable models you can begin to query the corresponding index like this:
 
