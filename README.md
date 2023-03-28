@@ -155,6 +155,18 @@ UpdateDocument::dispatch(
             );
 ```
 
+# bulk indexing documents
+
+```php
+BulkIndexDocuments::dispatchSync(
+        'blogs',
+        [
+            ['id' => 1, 'title' => 'abcd'],
+            ['id' => 2, 'title' => 'efgh'],
+        ]
+    );
+```
+
 # update documents having a condition
 
 ```php
