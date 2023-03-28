@@ -58,7 +58,7 @@ class UpdateDocumentsByCondition implements ShouldQueue
                 'index' => $this->name,
                 'body' => [
                     'script' => [
-                        'source' => $this->setValueForMultipleFieldsScript($this->document),
+                        'source' => $this->setValueForMultipleFieldsScript(),
                         'params' => $this->document,
                     ],
                     'query' => $query->toRaw()['body']['query'],
@@ -83,11 +83,11 @@ class UpdateDocumentsByCondition implements ShouldQueue
         $client->bulk(['refresh' => true, 'body' => $bulkBody,]);
     }
 
-    private function setValueForMultipleFieldsScript(array $data): string
+    private function setValueForMultipleFieldsScript(): string
     {
         $result = '';
 
-        foreach ($data as $field => $value) {
+        foreach ($this->document as $field => $value) {
             $result .= "ctx._source.$field = params.$field; ";
         }
 
