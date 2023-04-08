@@ -261,6 +261,14 @@ you can add an index to the indices that are being queried:
 Blog::elasticsearchQuery()->addIndex(Users::class)->addIndex('blogs');
 ```
 
+# determine search type
+
+```php
+Blog::elasticsearchQuery()->addIndex('blogs')->searchType('dfs_query_then_fetch');
+
+```
+for more information visit https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html
+
 # find a document by its id
 
 

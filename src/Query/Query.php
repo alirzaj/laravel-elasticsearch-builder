@@ -35,6 +35,13 @@ class Query
         return $this;
     }
 
+    public function searchType(string $type): Query
+    {
+        $this->params['search_type'] = $type;
+
+        return $this;
+    }
+
     public function only(string|array $fields): Query
     {
         $this->params['body']['_source'] = $fields;
