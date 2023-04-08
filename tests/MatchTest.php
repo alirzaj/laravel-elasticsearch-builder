@@ -70,3 +70,39 @@ test('users can determine search type', function() {
 
     expect(true)->toBeTrue();
 });
+
+test('users can determine from option for getting results', function() {
+    \Pest\Laravel\mock(Client::class)
+        ->shouldReceive('search')
+        ->with([
+            'index' => ['blogs'],
+            'body' => [
+                'query' => [
+                    'match' => [
+                        'field' => [
+                            'analyzer' => 'aaa',
+                            'query' => 'test',
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ],
+                'from' => 10
+            ],
+        ])
+        ->andReturn([
+            'hits' => [
+                'hits' => [
+                    ['_source' => []],
+                    ['_source' => []],
+                    ['_source' => []],
+                ],
+            ],
+        ]);
+
+    Blog::elasticsearchQuery()
+        ->from(10)
+        ->match('field', 'test', 'aaa', 'AUTO')
+        ->get();
+
+    expect(true)->toBeTrue();
+});

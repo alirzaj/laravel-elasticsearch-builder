@@ -56,6 +56,13 @@ class Query
         return $this;
     }
 
+    public function from(int $from): Query
+    {
+        $this->params['body']['from'] = $from;
+
+        return $this;
+    }
+
     //TODO add options (minimum should match)
     public function boolean(Closure ...$queries): Query
     {

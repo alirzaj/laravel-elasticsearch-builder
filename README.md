@@ -382,6 +382,14 @@ note that the result collection's keys are _id of your documents.
 Blog::elasticsearchQuery()->match('title', 'ttt')->size(15)->get();
 ```
 
+# determine from option for getting results (pagination)
+
+```php
+Blog::elasticsearchQuery()->match('title', 'ttt')->from(10)->get();
+```
+
+for more information visit https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html
+
 # select specific fields
 
 `only()` method will add "_source" to your query.
