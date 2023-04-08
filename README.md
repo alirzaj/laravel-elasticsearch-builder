@@ -261,6 +261,13 @@ you can add an index to the indices that are being queried:
 Blog::elasticsearchQuery()->addIndex(Users::class)->addIndex('blogs');
 ```
 
+# boost the score of some indices
+
+```php
+Blog::elasticsearchQuery()->addIndex('blogs')->addIndex('posts')->boost(['blogs' => 2]);
+
+```
+
 # determine search type
 
 ```php

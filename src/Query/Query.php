@@ -35,6 +35,13 @@ class Query
         return $this;
     }
 
+    public function boost(array $indicesBoost) : Query
+    {
+        $this->params['body']['indices_boost'] = $indicesBoost;
+
+        return $this;
+    }
+
     public function searchType(string $type): Query
     {
         $this->params['search_type'] = $type;

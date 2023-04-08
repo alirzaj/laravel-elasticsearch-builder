@@ -106,3 +106,39 @@ test('users can determine from option for getting results', function() {
 
     expect(true)->toBeTrue();
 });
+
+test('boost score of some indices', function() {
+    \Pest\Laravel\mock(Client::class)
+        ->shouldReceive('search')
+        ->with([
+            'index' => ['blogs'],
+            'body' => [
+                'indices_boost' => ['blogs' => 2],
+                'query' => [
+                    'match' => [
+                        'field' => [
+                            'analyzer' => 'aaa',
+                            'query' => 'test',
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ],
+            ],
+        ])
+        ->andReturn([
+            'hits' => [
+                'hits' => [
+                    ['_source' => []],
+                    ['_source' => []],
+                    ['_source' => []],
+                ],
+            ],
+        ]);
+
+    Blog::elasticsearchQuery()
+        ->boost(['blogs' => 2])
+        ->match('field', 'test', 'aaa', 'AUTO')
+        ->get();
+
+    expect(true)->toBeTrue();
+});
