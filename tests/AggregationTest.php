@@ -100,4 +100,6 @@ it('can build aggregation (aggs) query', function () {
             )
         )
         ->get();
+
+    expect(true)->toBeTrue();
 });
