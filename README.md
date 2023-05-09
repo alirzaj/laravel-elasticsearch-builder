@@ -205,6 +205,19 @@ AddItemToNestedField::dispatchSync(
     );
 ```
 
+
+# add an item to an array field
+
+```php
+AddItemToArrayField::dispatchSync(
+        'blogs',
+        10,
+        'tags',
+        'php',
+    );
+```
+
+
 # update a document's nested field items having a condition
 
 ```php
