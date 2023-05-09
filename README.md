@@ -379,15 +379,22 @@ you can build aggregation queries like this:
 (note that currently, when you use aggregations, you'll get raw elasticsearch results)
 
 ```php
-Blog::elasticsearchQuery()
-    ->disjunctionMax(
-        fn (Query $query) => $query->match('a', 'b'),
-        fn (Query $query) => $query->boolean(
-            fn (Should $should) => $should
-                 ->exists('f')
-                 ->term('g', 'h')
-          ),
-    );
+(new Query())
+        ->addIndex('posts')
+        ->addIndex('users')
+        ->size(0)
+        ->boolean(
+            fn(Must $must) => $must->term('published', true),
+            fn(Should $should) => $should
+                ->term('title', 'aaaa')
+                ->term('title', 'bbbb'),
+        )
+        ->aggregation('types', (new Terms('morph_type'))
+            ->aggregation('latest', (new TopHits(source: ['title', 'morph_type', 'created_at'], size: 3))
+                ->sort(field: 'created_at', direction: 'desc')
+            )
+        )
+        ->get();
 ```
 
 # working with array fields
