@@ -2,6 +2,7 @@
 
 namespace Alirzaj\ElasticsearchBuilder\Query;
 
+use Alirzaj\ElasticsearchBuilder\Query\Aggregation\Aggregation;
 use Closure;
 use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -21,6 +22,7 @@ class Query
         Must::class,
     ];
     protected array $query;
+    protected array $aggregations = [];
 
     public function addIndex(string $index): Query
     {
@@ -79,6 +81,13 @@ class Query
         }
 
         $this->add('bool', $booleanQuery);
+
+        return $this;
+    }
+
+    public function aggregation(string $name, Aggregation $aggregation) : Query
+    {
+        $this->aggregations[$name] = $aggregation->toArray();
 
         return $this;
     }
@@ -186,7 +195,11 @@ class Query
 
     public function get(): Collection
     {
-        return collect($this->executeQuery()['hits']['hits'])->pluck('_source', '_id');
+        if (blank($this->aggregations)) {
+            return collect($this->executeQuery()['hits']['hits'])->pluck('_source', '_id');
+        }
+
+        return collect($this->executeQuery());
     }
 
     public function find(mixed $id) : array
@@ -226,6 +239,10 @@ class Query
     private function executeQuery(): array
     {
         $this->params['body']['query'] = $this->query;
+
+        if (filled($this->aggregations)) {
+            $this->params['body']['aggs'] = $this->aggregations;
+        }
 
         return resolve(Client::class)->search($this->params);
     }

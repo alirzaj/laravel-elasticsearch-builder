@@ -373,6 +373,23 @@ Blog::elasticsearchQuery()
     );
 ```
 
+# aggregations (aggs)
+
+you can build aggregation queries like this: 
+(note that currently, when you use aggregations, you'll get raw elasticsearch results)
+
+```php
+Blog::elasticsearchQuery()
+    ->disjunctionMax(
+        fn (Query $query) => $query->match('a', 'b'),
+        fn (Query $query) => $query->boolean(
+            fn (Should $should) => $should
+                 ->exists('f')
+                 ->term('g', 'h')
+          ),
+    );
+```
+
 # working with array fields
 
 this package provides two jobs for updating/removing an item from an array field:
