@@ -347,6 +347,7 @@ Blog::elasticsearchQuery()
             ->match('a', 'b')
             ->match('z', 'x', analyzer: 'custom-analyzer')
             ->multiMatch(['c', 'd'], 'e')
+        fn(BooleanOptions $booleanOptions) => $booleanOptions->minimumShouldMatch(1)
     );
 ```
 
