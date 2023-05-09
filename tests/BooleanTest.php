@@ -1,5 +1,6 @@
 <?php
 
+use Alirzaj\ElasticsearchBuilder\Query\BooleanOptions;
 use Alirzaj\ElasticsearchBuilder\Query\Filter;
 use Alirzaj\ElasticsearchBuilder\Query\Must;
 use Alirzaj\ElasticsearchBuilder\Query\MustNot;
@@ -62,6 +63,49 @@ it('can build a should query', function () {
                 ->match('a', 'b')
                 ->match('z', 'x', 'rrr')
                 ->multiMatch(['c', 'd'], 'e')
+        )
+        ->get();
+
+    expect(true)->toBeTrue();
+});
+
+it('can set boolean options', function () {
+    \Pest\Laravel\mock(Client::class)
+        ->shouldReceive('search')
+        ->with([
+            'index' => ['blogs'],
+            'body' => [
+                'query' => [
+                    'bool' => [
+                        'should' => [
+                            [
+                                'match' => [
+                                    'a' => [
+                                        'query' => 'b',
+                                        'fuzziness' => 'AUTO',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'minimum_should_match' => 1
+                    ],
+                ],
+            ],
+        ])
+        ->andReturn([
+            'hits' => [
+                'hits' => [
+                    ['_source' => []],
+                    ['_source' => []],
+                    ['_source' => []],
+                ],
+            ],
+        ]);
+
+    Blog::elasticsearchQuery()
+        ->boolean(
+            fn (Should $should) => $should->match('a', 'b'),
+            fn(BooleanOptions $booleanOptions) => $booleanOptions->minimumShouldMatch(1)
         )
         ->get();
 
