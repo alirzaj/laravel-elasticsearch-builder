@@ -113,7 +113,7 @@ class Query
         ]);
     }
 
-    public function term(string $field, float|int|string $value, float|int $boost = 1.0): Query
+    public function term(string $field, float|int|string|bool $value, float|int $boost = 1.0): Query
     {
         return $this->add('term', [
             $field => [
