@@ -236,6 +236,24 @@ UpdateNestedItemByCondition::dispatchSync(
     );
 ```
 
+# update all documents' nested field items having a condition
+
+```php
+ UpdateNestedItemByQuery::dispatchSync(
+        'blogs',
+        'tags',
+        ['id' => 20], // in documents, we have a [nested] tags field. now we are looking for all documents with this criteria
+        /**
+         * we want all of those items having above condition to be updated to this item
+         * note that if you have id key in conditions, and id key in document parameter, the values must be the same
+         * in other words condition's value must not change in update.
+         * in this example we find the tag via id and update its name. we couldn't find it via old name and set a new name
+         */
+        ['id' => 20, 'name' => 'new-php']
+    );
+
+```
+
 # delete a document
 
 ```php
