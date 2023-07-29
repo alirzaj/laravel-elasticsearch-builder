@@ -254,6 +254,29 @@ UpdateNestedItemByCondition::dispatchSync(
 
 ```
 
+# remove item from a nested field in a specific document
+
+```php
+ /**
+     * In tags field, remove all sub-fields with the key of id and value of 20
+     */
+    RemoveItemFromNestedField::dispatch('blogs', 10, 'tags', 'id', 20);
+```
+
+# remove item from a nested field by conditions
+
+```php
+ /**
+     * find documents that have id:20 in their tags field and delete id:20 from them
+     */
+    DeleteNestedFieldByCondition::dispatch(
+        'blogs',
+        'tags',
+        ['id' => 20]
+    );
+```
+
+
 # delete a document
 
 ```php
