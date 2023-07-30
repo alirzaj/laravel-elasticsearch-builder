@@ -7,7 +7,6 @@ it('can update an item of a nested field that satisfies some conditions in all d
     \Pest\Laravel\mock(Client::class)
         ->shouldReceive('updateByQuery')
         ->with([
-            'retry_on_conflict' => 3,
             'refresh' => true,
             'index' => 'blogs',
             'body' => [

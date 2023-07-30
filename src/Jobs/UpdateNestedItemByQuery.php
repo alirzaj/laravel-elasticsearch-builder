@@ -29,7 +29,6 @@ class UpdateNestedItemByQuery implements ShouldQueue
     public function handle(Client $client): void
     {
         $client->updateByQuery([
-            'retry_on_conflict' => config('elasticsearch.retry_on_conflict'),
             'refresh' => true,
             'index' => $this->name,
             'body' => [
