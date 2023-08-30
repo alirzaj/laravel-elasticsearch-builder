@@ -10,6 +10,58 @@ It is not trying to provide Eloquent-like api to work with elasticsearch. instea
 
 this package contains the queries that I needed on my projects. so if you feel the need of a method or feature please open an issue, and I will try to implement it as soon as possible.
 
+<!-- TOC -->
+* [a query builder for elasticsearch database](#a-query-builder-for-elasticsearch-database)
+* [Installation](#installation-)
+  * [Usage](#usage)
+* [define indices](#define-indices)
+* [create indices](#create-indices)
+* [delete indices](#delete-indices)
+* [configuration](#configuration)
+* [making models searchable](#making-models-searchable)
+* [indexing documents without eloquent models and using searchable trait](#indexing-documents-without-eloquent-models-and-using-searchable-trait)
+* [bulk indexing documents](#bulk-indexing-documents)
+* [update documents having a condition](#update-documents-having-a-condition)
+* [add an item to a nested field](#add-an-item-to-a-nested-field)
+* [add an item to an array field](#add-an-item-to-an-array-field)
+* [update a document's nested field items having a condition](#update-a-documents-nested-field-items-having-a-condition)
+* [update all documents' nested field items having a condition](#update-all-documents-nested-field-items-having-a-condition)
+* [remove item from a nested field in a specific document](#remove-item-from-a-nested-field-in-a-specific-document)
+* [remove item from a nested field by conditions](#remove-item-from-a-nested-field-by-conditions)
+* [delete a document](#delete-a-document)
+* [delete all documents that meet some conditions](#delete-all-documents-that-meet-some-conditions)
+* [querying indices](#querying-indices)
+* [include an index in query:](#include-an-index-in-query)
+* [boost the score of some indices](#boost-the-score-of-some-indices)
+* [determine search type](#determine-search-type)
+* [find a document by its id](#find-a-document-by-its-id)
+* [match](#match-)
+* [match_all](#matchall)
+* [multi_match](#multimatch)
+* [nested](#nested)
+* [exists](#exists)
+* [bool](#bool)
+* [term](#term)
+* [terms](#terms)
+* [range](#range)
+* [dis_max](#dismax)
+* [aggregations (aggs)](#aggregations-aggs)
+* [working with array fields](#working-with-array-fields)
+* [getting results](#getting-results)
+* [determine a size limit for results](#determine-a-size-limit-for-results)
+* [determine from option for getting results (pagination)](#determine-from-option-for-getting-results-pagination)
+* [select specific fields](#select-specific-fields)
+* [build queries based on conditions](#build-queries-based-on-conditions)
+* [debugging](#debugging)
+* [using the low-level elasticsearch client](#using-the-low-level-elasticsearch-client)
+* [logging](#logging)
+* [Testing Helpers](#testing-helpers)
+  * [refreshing indices state](#refreshing-indices-state)
+  * [assertions](#assertions)
+* [Credits](#credits)
+* [License](#license)
+<!-- TOC -->
+
 # Installation 
 to install this package, require it via composer:
 
@@ -402,6 +454,11 @@ Blog::elasticsearchQuery()->term('field', 'value', 1.5);
 Blog::elasticsearchQuery()->terms('field', ['value-1', 'value-2']);
 ```
 
+# range
+```php
+Blog::elasticsearchQuery()->range(field: 'field', gte: 10, lte: 20);
+```
+
 # dis_max
 ```php
 Blog::elasticsearchQuery()
@@ -512,9 +569,9 @@ this package will bind the `Elasticsearch\Client` class to the service container
 # logging
 when the environment is testing or local, this package will log executed queries in `storage/logs/elasticsearch.log` file.
 
-## Testing Helpers
+# Testing Helpers
 
-#### refreshing indices state
+## refreshing indices state
 
 this package provides a `RefreshElasticsearchDatabase` trait that you can use to clean up the elasticsearch indices after each test.
 
@@ -548,7 +605,7 @@ public function tearDown(): void
 }
 ```
 
-#### assertions
+## assertions
 
 this package provides an `InteractsWithElasticsearch` trait that you can use in your test cases in order to make assertion on data in elasticsearch indices.
 
@@ -580,23 +637,11 @@ or make sure that a document is not indexed in elasticsearch:
  );
 ```
 
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
+# Credits
 
 - [AL!R3Z4](https://github.com/alirzaj)
 - [All Contributors](../../contributors)
 
-## License
+# License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

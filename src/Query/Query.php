@@ -184,6 +184,26 @@ class Query
         return $this->add('match_all', ['match_all' => ['boost' => $boost]]);
     }
 
+    public function range(
+        string           $field,
+        mixed            $gte = null,
+        mixed            $lte = null,
+        mixed            $gt = null,
+        mixed            $lt = null,
+        float|int        $boost = null,
+    ): Query
+    {
+        return $this->add('range', [
+            $field => array_filter([
+                'gte' => $gte,
+                'lte' => $lte,
+                'gt' => $gt,
+                'lt' => $lt,
+                'boost' => $boost
+            ]),
+        ]);
+    }
+
     private function add(string $name, array $query): self
     {
         in_array(get_class($this), $this->compounds)
