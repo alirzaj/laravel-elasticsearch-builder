@@ -25,9 +25,34 @@ class ElasticsearchBuilderServiceProvider extends ServiceProvider
         );
     }
 
-    public function boot()
+    private function bindClient()
     {
-        $this->registerConfiguration();
+        $this->app->singleton(Client::class, function () {
+            $hosts = Arr::wrap(config('elasticsearch.hosts'));
+
+            $client = ClientBuilder::create()
+                ->setSSLVerification(config('elasticsearch.ssl_verification'))
+                ->setHosts(
+                    array_map(
+                        fn($host) => is_string($host)
+                            ? $host
+                            : $host['scheme'] . '://' . $host['host'] . ':' . $host['port'],
+                        $hosts
+                    )
+                )
+                ->setBasicAuthentication($hosts[0]['user'], $hosts[0]['pass']);
+
+            if ($this->app->environment('local', 'testing')) {
+                //TODO test
+                $client->setLogger(
+                    (new Logger('elasticsearch'))->pushHandler(
+                        new StreamHandler(storage_path('logs/elastic.log'), Logger::DEBUG)
+                    )
+                );
+            }
+
+            return $client->build();
+        });
     }
 
     private function registerCommands(): self
@@ -42,30 +67,15 @@ class ElasticsearchBuilderServiceProvider extends ServiceProvider
         return $this;
     }
 
+    public function boot()
+    {
+        $this->registerConfiguration();
+    }
+
     private function registerConfiguration()
     {
         $this->publishes([
             __DIR__ . '/../config/elasticsearch.php' => config_path('elasticsearch.php'),
         ]);
-    }
-
-    private function bindClient()
-    {
-        $this->app->singleton(Client::class, function () {
-            $client = ClientBuilder::create()->setSSLVerification(config('elasticsearch.ssl_verification'))->setHosts(
-                Arr::wrap(config('elasticsearch.hosts'))
-            );
-
-            if ($this->app->environment('local', 'testing')) {
-                //TODO test
-                $client->setLogger(
-                    (new Logger('elasticsearch'))->pushHandler(
-                        new StreamHandler(storage_path('logs/elastic.log'), Logger::DEBUG)
-                    )
-                );
-            }
-
-            return $client->build();
-        });
     }
 }
