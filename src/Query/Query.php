@@ -256,7 +256,7 @@ class Query
         return $model->forceFill($source + [$model->getKeyName() => $id]);
     }
 
-    private function executeQuery(): array
+    private function executeQuery(): \ArrayAccess
     {
         $this->params['body']['query'] = $this->query;
 
