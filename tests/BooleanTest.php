@@ -6,7 +6,7 @@ use Alirzaj\ElasticsearchBuilder\Query\Must;
 use Alirzaj\ElasticsearchBuilder\Query\MustNot;
 use Alirzaj\ElasticsearchBuilder\Query\Should;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can build a should query', function () {
     \Pest\Laravel\mock(Client::class)

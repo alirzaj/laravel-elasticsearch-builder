@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can build a match_all query with default parameters', function () {
     \Pest\Laravel\mock(Client::class)

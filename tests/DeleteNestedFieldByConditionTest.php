@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\DeleteNestedFieldByCondition;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can delete a nested field from all documents having some conditions', function () {
     $this->withoutExceptionHandling();

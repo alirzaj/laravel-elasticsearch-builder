@@ -4,7 +4,7 @@ namespace Alirzaj\ElasticsearchBuilder\Query;
 
 use Alirzaj\ElasticsearchBuilder\Query\Aggregation\Aggregation;
 use Closure;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

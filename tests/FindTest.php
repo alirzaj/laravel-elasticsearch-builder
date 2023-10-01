@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can find a documet by its id', function () {
     \Pest\Laravel\mock(Client::class)

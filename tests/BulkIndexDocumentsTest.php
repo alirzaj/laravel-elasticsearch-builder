@@ -2,7 +2,7 @@
 
 use Alirzaj\ElasticsearchBuilder\Jobs\BulkIndexDocuments;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Support\Str;
 
 it('can index multiple documents at once', function () {

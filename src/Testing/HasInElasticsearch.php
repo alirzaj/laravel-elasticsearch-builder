@@ -2,7 +2,7 @@
 
 namespace Alirzaj\ElasticsearchBuilder\Testing;
 
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Constraint\Constraint;

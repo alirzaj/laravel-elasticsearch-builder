@@ -3,8 +3,8 @@
 namespace Alirzaj\ElasticsearchBuilder\Commands;
 
 use Alirzaj\ElasticsearchBuilder\Index;
-use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 

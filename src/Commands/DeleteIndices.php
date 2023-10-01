@@ -3,7 +3,7 @@
 namespace Alirzaj\ElasticsearchBuilder\Commands;
 
 use Alirzaj\ElasticsearchBuilder\Index;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Console\Command;
 
 class DeleteIndices extends Command

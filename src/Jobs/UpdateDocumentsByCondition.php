@@ -5,7 +5,7 @@ namespace Alirzaj\ElasticsearchBuilder\Jobs;
 use Alirzaj\ElasticsearchBuilder\Query\Filter;
 use Alirzaj\ElasticsearchBuilder\Query\MustNot;
 use Alirzaj\ElasticsearchBuilder\Query\Query;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

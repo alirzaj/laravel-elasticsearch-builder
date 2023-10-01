@@ -3,7 +3,7 @@
 use Alirzaj\ElasticsearchBuilder\Query\Must;
 use Alirzaj\ElasticsearchBuilder\Query\Query;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can make a nested query and set ignore_unmapped and score mode to default values', function () {
     \Pest\Laravel\mock(Client::class)

@@ -564,7 +564,7 @@ Blog::elasticsearchQuery()->match('title', 'ttt')->dd();
 ```
 
 # using the low-level elasticsearch client
-this package will bind the `Elasticsearch\Client` class to the service container as a singleton, so you can resolve it out of the container whenever you need to use it directly.
+this package will bind the `Elastic\Elasticsearch\Client` class to the service container as a singleton, so you can resolve it out of the container whenever you need to use it directly.
 
 # logging
 when the environment is testing or local, this package will log executed queries in `storage/logs/elasticsearch.log` file.

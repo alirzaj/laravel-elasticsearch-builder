@@ -2,7 +2,7 @@
 
 use Alirzaj\ElasticsearchBuilder\Tests\Indices\Users;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can add multiple indexes to the query', function () {
     \Pest\Laravel\mock(Client::class)

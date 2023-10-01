@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\DeleteDocumentsByCondition;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can delete documents having some condition', function () {
     \Pest\Laravel\mock(Client::class)

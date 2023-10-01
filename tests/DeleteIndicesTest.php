@@ -1,12 +1,11 @@
 <?php
 
-use Elasticsearch\Client;
-use Elasticsearch\Namespaces\IndicesNamespace;
+use Elastic\Elasticsearch\Client;
 use function Pest\Laravel\artisan;
 
 it('can delete indices', function () {
     $client = \Pest\Laravel\mock(Client::class);
-    $indices = \Pest\Laravel\mock(IndicesNamespace::class);
+    $indices = \Pest\Laravel\mock(Elastic\Elasticsearch\Endpoints\Indices::class);
 
     $client
         ->shouldReceive('indices')

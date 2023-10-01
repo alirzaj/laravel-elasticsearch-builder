@@ -1,6 +1,6 @@
 <?php
 
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Alirzaj\ElasticsearchBuilder\Jobs\AddItemToArrayField;
 
 it('can add an item to an array field', function () {

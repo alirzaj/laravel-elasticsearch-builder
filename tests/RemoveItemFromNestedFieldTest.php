@@ -2,7 +2,7 @@
 
 use Alirzaj\ElasticsearchBuilder\Jobs\RemoveItemFromNestedField;
 use Alirzaj\ElasticsearchBuilder\Jobs\UpdateNestedItemByCondition;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can remove an item from a nested field', function () {
     $this->withoutExceptionHandling();

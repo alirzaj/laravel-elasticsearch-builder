@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\UpdateNestedItemByCondition;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can update an item of a nested field that satisfies some conditions in a document', function () {
     \Pest\Laravel\mock(Client::class)

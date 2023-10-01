@@ -38,7 +38,7 @@ services:
             - ./../:/var/www/html
         entrypoint: [ "composer" ]
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
         environment:
             - node.name=elkb
             - cluster.name=sokanacademy

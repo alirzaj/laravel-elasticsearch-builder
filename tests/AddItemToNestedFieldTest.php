@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\AddItemToNestedField;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can add an item to a nested field', function () {
     \Pest\Laravel\mock(Client::class)

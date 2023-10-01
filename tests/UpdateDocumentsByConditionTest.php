@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\UpdateDocumentsByCondition;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can update documents without large fields in them', function () {
     \Pest\Laravel\mock(Client::class)

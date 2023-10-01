@@ -5,7 +5,7 @@ use Alirzaj\ElasticsearchBuilder\Query\Aggregation\TopHits;
 use Alirzaj\ElasticsearchBuilder\Query\Must;
 use Alirzaj\ElasticsearchBuilder\Query\Query;
 use Alirzaj\ElasticsearchBuilder\Query\Should;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can build aggregation (aggs) query', function () {
 

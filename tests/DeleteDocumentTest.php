@@ -1,7 +1,7 @@
 <?php
 
 use Alirzaj\ElasticsearchBuilder\Jobs\DeleteDocument;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 
 it('can delete a document', function (){
     \Pest\Laravel\mock(Client::class)

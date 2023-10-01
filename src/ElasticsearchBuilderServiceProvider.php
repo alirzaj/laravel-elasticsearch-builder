@@ -4,8 +4,8 @@ namespace Alirzaj\ElasticsearchBuilder;
 
 use Alirzaj\ElasticsearchBuilder\Commands\CreateIndices;
 use Alirzaj\ElasticsearchBuilder\Commands\DeleteIndices;
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Monolog\Handler\StreamHandler;

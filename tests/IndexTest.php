@@ -2,7 +2,7 @@
 
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Blog;
 use Alirzaj\ElasticsearchBuilder\Tests\Models\Tag;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Support\Str;
 
 it('will index a model when it is created', function () {
