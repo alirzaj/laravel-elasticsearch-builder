@@ -4,7 +4,7 @@ namespace Alirzaj\ElasticsearchBuilder\Commands;
 
 use Alirzaj\ElasticsearchBuilder\Index;
 use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 
@@ -33,7 +33,7 @@ class CreateIndices extends Command
 
                 try {
                     $client->indices()->create($this->createIndexQuery($index));
-                } catch (BadRequest400Exception $e) {
+                } catch (ClientResponseException $e) {
                     $this->alert("{$index->getName()} already exists.");
                 }
 
