@@ -159,6 +159,14 @@ class Users extends Index
             'preserve_original' => 'true',
         ],
     ];
+    
+    public array $staticIndexSettings = [
+        'number_of_shards' => 1,
+    ];
+
+    public array $dynamicIndexSettings = [
+        'number_of_replicas' => 1,
+    ];
 }
 ```
 
@@ -171,6 +179,7 @@ if you don't define `$name` index name will equal to class name.
 `$analyzers` is custom defined analyzers for index.
 
 `$tokenizers` contains config for tokenizers.
+For understanding `$staticIndexSettings` and `$dynamicIndexSettings` you can check here: https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html
 
  the only property that you **must** define is `$properties`.
 
