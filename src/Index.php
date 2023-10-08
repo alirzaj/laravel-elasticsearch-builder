@@ -104,6 +104,20 @@ class Index
      */
     public array $tokenFilters = [];
 
+    /**
+     *
+     * https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html#_static_index_settings
+     *
+     */
+    public array $staticIndexSettings = [];
+
+    /**
+     *
+     * https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html#dynamic-index-settings
+     *
+     */
+    public array $dynamicIndexSettings = [];
+
     public function getName(): string
     {
         return $this->name ?? strtolower(class_basename($this));

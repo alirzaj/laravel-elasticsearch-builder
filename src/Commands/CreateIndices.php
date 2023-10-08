@@ -48,15 +48,7 @@ class CreateIndices extends Command
         return [
             'index' => $index->getName(),
             'body' => [
-                'settings' => [
-                    'analysis' => [
-                        'analyzer' => $index->analyzers ?? [],
-                        'tokenizer' => $index->tokenizers ?? [],
-                        'normalizer' => $index->normalizers ?? [],
-                        'filter' => $index->tokenFilters ?? [],
-                        'char_filter' => $index->characterFilters ?? []
-                    ],
-                ],
+                'settings' => $this->createSettingsQuery($index),
                 'mappings' => [
                     'properties' => collect($index->propertyTypes)
                         ->map(fn(string $type, string $name) => [
@@ -68,6 +60,26 @@ class CreateIndices extends Command
                 ],
             ],
         ];
+    }
+
+    private function createSettingsQuery(Index $index): array
+    {
+        $settings = [
+            'analysis' => [
+                'analyzer' => $index->analyzers ?? [],
+                'tokenizer' => $index->tokenizers ?? [],
+                'normalizer' => $index->normalizers ?? [],
+                'filter' => $index->tokenFilters ?? [],
+                'char_filter' => $index->characterFilters ?? []
+            ],
+        ];
+
+        if (!empty($index->staticIndexSettings) || !empty($index->dynamicIndexSettings))
+        {
+            $settings['index'] = $index->staticIndexSettings + $index->dynamicIndexSettings;
+        }
+
+        return $settings;
     }
 
     private function addOptionalParameters(Index $index, string $fieldName): array
