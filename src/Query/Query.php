@@ -256,7 +256,7 @@ class Query
         return $model->forceFill($source + [$model->getKeyName() => $id]);
     }
 
-    private function executeQuery(): \ArrayAccess
+    private function executeQuery(): array
     {
         $this->params['body']['query'] = $this->query;
 
@@ -264,7 +264,7 @@ class Query
             $this->params['body']['aggs'] = $this->aggregations;
         }
 
-        return resolve(Client::class)->search($this->params);
+        return json_decode(resolve(Client::class)->search($this->params)->getBody(), true);
     }
 
     public function toRaw(): array
