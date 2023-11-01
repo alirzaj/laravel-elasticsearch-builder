@@ -213,10 +213,10 @@ class Query
         return $this;
     }
 
-    public function get(): Collection
+    public function get(string|null $keyResultsBy = '_id'): Collection
     {
         if (blank($this->aggregations)) {
-            return collect($this->executeQuery()['hits']['hits'])->pluck('_source', '_id');
+            return collect($this->executeQuery()['hits']['hits'])->pluck('_source', $keyResultsBy);
         }
 
         return collect($this->executeQuery());

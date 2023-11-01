@@ -518,7 +518,7 @@ UpdateArrayItem::dispatch('index_name', 'array_field_name', 'old_value', 'new_va
 after writing a query, you can call `get()` to get the results as a collection.
 
 ```php
-Blog::elasticsearchQuery()->match('title', 'ttt')->get(); //a collection including _source of the resulting documents
+Blog::elasticsearchQuery()->match('title', 'ttt')->get(keyResultsBy: '_id'); //a collection including _source of the resulting documents
 ```
 you can also hydrate the results as eloquent models:
 
