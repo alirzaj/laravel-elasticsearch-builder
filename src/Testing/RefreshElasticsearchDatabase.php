@@ -23,7 +23,8 @@ trait RefreshElasticsearchDatabase
                         ->map(fn(Index $index) => $index->getName())
                         ->toArray()
 
-                ]);
+                ])
+                ->asArray();
         }
 
         if (self::$indicesPopulated) {
