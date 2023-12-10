@@ -24,7 +24,7 @@ trait RefreshElasticsearchDatabase
                         ->toArray()
 
                 ])
-                ->asArray();
+                ->asBool();
         }
 
         if (self::$indicesPopulated) {
@@ -34,7 +34,7 @@ trait RefreshElasticsearchDatabase
         try {
             $this->artisan('elastic:create-indices');
         } catch (BadRequest400Exception $ex) {
-            if (stripos($ex->getMessage(), 'resource_already_exists_exception') != false) {
+            if (stripos($ex->getMessage(), 'resource_already_exists_exception')) {
                 $this->artisan('elastic:delete-indices');
 
                 $this->artisan('elastic:create-indices');
