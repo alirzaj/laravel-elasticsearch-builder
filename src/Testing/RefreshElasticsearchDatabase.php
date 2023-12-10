@@ -24,7 +24,7 @@ trait RefreshElasticsearchDatabase
                         ->toArray()
 
                 ])
-                ->asArray();
+                ->asBool();
         }
 
         if (self::$indicesPopulated) {
