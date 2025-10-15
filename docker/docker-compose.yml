@@ -8,7 +8,7 @@ services:
         volumes:
             - ./../:/var/www/html
     mysql:
-        image: bitnami/mariadb:10.11.2
+        image: mariadb:10.11.2
         ports:
             - "3306:3306"
         volumes:
