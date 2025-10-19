@@ -264,7 +264,13 @@ class Query
             $this->params['body']['aggs'] = $this->aggregations;
         }
 
-        return json_decode(resolve(Client::class)->search($this->params)->getBody(), true);
+        $result = resolve(Client::class)->search($this->params);
+
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return json_decode($result->getBody(), true);
     }
 
     public function toRaw(): array
